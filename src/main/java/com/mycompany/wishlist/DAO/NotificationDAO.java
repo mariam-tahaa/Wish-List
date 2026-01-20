@@ -8,6 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+////////////////////////////////////////////
+
+// Insert New Notification
+// Get Notifications by User ID
+// Mark Notification as Read
+
+////////////////////////////////////////////
 
 public class NotificationDAO {
 
