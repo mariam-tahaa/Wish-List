@@ -5,13 +5,13 @@ SELECT tablespace_name, bytes, max_bytes
 FROM user_ts_quotas;
 
 -- Set the schema context
-ALTER SESSION SET CURRENT_SCHEMA = Iwish;
-grant CREATE TABLE to Iwish;
-grant CREATE SEQUENCE to Iwish; 
-grant CREATE VIEW to Iwish;
-grant CREATE TRIGGER to Iwish;  
-grant CREATE PROCEDURE to Iwish;
-grant CREATE ANY CONTEXT to Iwish; 
+ALTER SESSION SET CURRENT_SCHEMA = Wishlist;
+grant CREATE TABLE to Wishlist;
+grant CREATE SEQUENCE to Wishlist; 
+grant CREATE VIEW to Wishlist;
+grant CREATE TRIGGER to Wishlist;  
+grant CREATE PROCEDURE to Wishlist;
+grant CREATE ANY CONTEXT to Wishlist; 
 --grant quota unlimited on USERS to Iwish;
 -- Create sequences for primary keys
 CREATE SEQUENCE app_user_seq;
