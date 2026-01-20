@@ -1,0 +1,11 @@
+com\mycompany\wishlist\Models\Gift.class
+com\mycompany\wishlist\Controllers\SecondaryController.class
+com\mycompany\wishlist\Models\User.class
+com\mycompany\wishlist\Controllers\PrimaryController.class
+com\mycompany\wishlist\DAO\GiftDAO.class
+com\mycompany\wishlist\DAO\UserDAO.class
+com\mycompany\wishlist\Models\Notification.class
+module-info.class
+com\mycompany\wishlist\DAO\NotificationDAO.class
+com\mycompany\wishlist\App.class
+com\mycompany\wishlist\Helpers\DBConnection.class
