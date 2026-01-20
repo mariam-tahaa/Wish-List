@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="900.0"
+           style="-fx-font-size: 16px;"
+           xmlns="http://javafx.com/javafx/8.0.171"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.mycompany.wishlist.Controllers.HomeController">
+
+    <!-- Background -->
+    <ImageView fitHeight="600.0" fitWidth="900.0">
+        <image>
+            <Image url="@Background.jpeg"/>
+        </image>
+    </ImageView>
+
+    <HBox>
+
+        <!-- ================= SIDEBAR ================= -->
+        <VBox prefWidth="260"
+              spacing="15"
+              style="-fx-background-color: rgba(0,0,0,0.85);">
+
+            <padding>
+                <Insets top="40" left="25" right="15" bottom="30"/>
+            </padding>
+
+            <!-- Logo -->
+            <HBox spacing="10">
+                <Label text="★" textFill="#f5b995">
+                    <font><Font size="36"/></font>
+                </Label>
+                <Label text="Wishes" textFill="WHITE">
+                    <font><Font size="36"/></font>
+                </Label>
+            </HBox>
+
+            <!-- Navigation -->
+            <VBox spacing="10">
+
+                <HBox fx:id="home" spacing="15" alignment="CENTER_LEFT"
+                      onMouseClicked="#goToHome" style="-fx-cursor: hand;">
+                    <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+                    <Label text="🏠" textFill="#ffffff"/>
+                    <Label text="Homepage" textFill="WHITE" style="-fx-font-weight: bold;"/>
+                </HBox>
+
+                <HBox fx:id="wishlist" spacing="15" alignment="CENTER_LEFT"
+                      onMouseClicked="#goToWishlist" style="-fx-cursor: hand;">
+                    <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+                    <Label text="📋" textFill="#f5b995"/>
+                    <Label text="Wishlist" textFill="#f5b995" style="-fx-font-weight: bold;"/>
+                </HBox>
+
+                <HBox fx:id="contributions" spacing="15" alignment="CENTER_LEFT"
+                      onMouseClicked="#goToContributions" style="-fx-cursor: hand;">
+                    <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+                    <Label text="🤝" textFill="#f5b995"/>
+                    <Label text="Contributions" textFill="#f5b995" style="-fx-font-weight: bold;"/>
+                </HBox>
+
+                <HBox fx:id="notifications" spacing="15" alignment="CENTER_LEFT"
+                      onMouseClicked="#goToNotifications" style="-fx-cursor: hand;">
+                    <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+                    <Label text="🔔" textFill="#f5b995"/>
+                    <Label text="Notifications" textFill="#f5b995" style="-fx-font-weight: bold;"/>
+                </HBox>
+
+                <HBox fx:id="friends" spacing="15" alignment="CENTER_LEFT"
+                      onMouseClicked="#goToFriends" style="-fx-cursor: hand;">
+                    <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+                    <Label text="👥" textFill="#f5b995"/>
+                    <Label text="Friends" textFill="#f5b995" style="-fx-font-weight: bold;"/>
+                </HBox>
+
+                <HBox fx:id="friendRequests" spacing="15" alignment="CENTER_LEFT"
+                      onMouseClicked="#goToFriendRequests" style="-fx-cursor: hand;">
+                    <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+                    <Label text="👤+" textFill="#f5b995"/>
+                    <Label text="Friend Requests" textFill="#f5b995" style="-fx-font-weight: bold;"/>
+                </HBox>
+
+                <HBox fx:id="allUsers" spacing="15" alignment="CENTER_LEFT"
+                      onMouseClicked="#goToAllUsers" style="-fx-cursor: hand;">
+                    <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+                    <Label text="🌐" textFill="#f5b995"/>
+                    <Label text="All Users" textFill="#f5b995" style="-fx-font-weight: bold;"/>
+                </HBox>
+
+            </VBox>
+        </VBox>
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <StackPane HBox.hgrow="ALWAYS">
+
+            <VBox alignment="CENTER" spacing="40">
+
+                <GridPane hgap="40" vgap="40">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="280"/>
+                        <ColumnConstraints prefWidth="280"/>
+                    </columnConstraints>
+
+                    <rowConstraints>
+                        <RowConstraints prefHeight="140"/>
+                        <RowConstraints prefHeight="140"/>
+                    </rowConstraints>
+
+                    <!-- Card 1 -->
+                    <StackPane prefWidth="280" prefHeight="140"
+                               style="-fx-background-color: rgba(12,12,12,0.45);
+                                      -fx-background-radius: 20;">
+                        <padding><Insets top="20"/></padding>
+                        <Label fx:id="numFriends" text="10 Friends" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;">
+                        </Label>
+                    </StackPane>
+
+                    <!-- Card 2 -->
+                    <StackPane GridPane.columnIndex="1"
+                               prefWidth="280" prefHeight="140"
+                               style="-fx-background-color: rgba(12,12,12,0.45);
+                                      -fx-background-radius: 20;">
+                        <padding><Insets top="20"/></padding>
+                        <Label fx:id="numWishlists" text="5 Wish Items" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;">
+                        </Label>
+                    </StackPane>
+
+                    <!-- Card 3 -->
+                    <StackPane GridPane.rowIndex="1"
+                               prefWidth="280" prefHeight="140"
+                               style="-fx-background-color: rgba(12,12,12,0.45);
+                                      -fx-background-radius: 20;">
+                        <padding><Insets top="20"/></padding>
+                        <Label fx:id="numNotifications" text="2 Notifications" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;">
+                        </Label>
+                    </StackPane>
+
+                    <!-- Card 4 -->
+                    <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1"
+                               prefWidth="280" prefHeight="140"
+                               style="-fx-background-color: rgba(12,12,12,0.45);
+                                      -fx-background-radius: 20;">
+                        <padding><Insets top="20"/></padding>
+                        <Label fx:id="numContributions" text="0 Contributions" textFill="WHITE" style="-fx-font-size: 22px; -fx-font-weight: bold;">
+                        </Label>
+                    </StackPane>
+
+                </GridPane>
+            </VBox>
+
+            <!-- Logout -->
+            <HBox alignment="TOP_RIGHT">
+                <padding>
+                    <Insets top="30" right="30"/>
+                </padding>
+                <Label text="Logout ➡" textFill="WHITE"
+                       onMouseClicked="#logout"
+                       style="-fx-cursor: hand;">
+                    <font><Font size="14"/></font>
+                </Label>
+            </HBox>
+
+        </StackPane>
+    </HBox>
+</StackPane>

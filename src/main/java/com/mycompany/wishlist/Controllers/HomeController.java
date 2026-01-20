@@ -1,0 +1,65 @@
+package com.mycompany.wishlist.Controllers;
+
+import java.io.IOException;
+
+import com.mycompany.wishlist.App;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+
+public class HomeController {
+    @FXML private Label numFriends;
+    @FXML private Label numWishlists;
+    @FXML private Label numNotifications;
+    @FXML private Label numContributions;
+
+    @FXML
+    private void initialize() {
+        // Example dynamic values
+        numFriends.setText("10 Friends");
+        numWishlists.setText("5 Wish Items");
+        numNotifications.setText("2 Notifications");
+        numContributions.setText("0 Contributions");
+    }
+
+    @FXML
+    private void goToHome(MouseEvent event) throws IOException {
+        App.setRoot("home");
+    }
+
+    @FXML
+    private void goToWishlist(MouseEvent event) throws IOException {
+        App.setRoot("wishlist");
+    }
+
+    @FXML
+    private void goToContributions(MouseEvent event) {
+        System.out.println("Go to Contributions");
+    }
+
+    @FXML
+    private void goToNotifications(MouseEvent event) {
+        System.out.println("Go to Notifications");
+    }
+
+    @FXML
+    private void goToFriends(MouseEvent event) {
+        System.out.println("Go to Friends");
+    }
+
+    @FXML
+    private void goToFriendRequests(MouseEvent event) {
+        System.out.println("Go to Friend Requests");
+    }
+
+    @FXML
+    private void goToAllUsers(MouseEvent event) {
+        System.out.println("Go to All Users");
+    }
+
+    @FXML
+    private void logout(MouseEvent event) throws IOException {
+        App.setRoot("index");
+    }
+}

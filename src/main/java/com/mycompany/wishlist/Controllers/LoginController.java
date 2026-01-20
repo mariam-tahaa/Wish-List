@@ -39,5 +39,7 @@ public class LoginController {
     }
 
     @FXML
-    private void login(ActionEvent event) {}
+    private void login(ActionEvent event) throws IOException {
+        App.setRoot("home");
+    }
 }

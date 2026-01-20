@@ -53,5 +53,7 @@ public class RegisterController {
     }
 
     @FXML
-    private void register(ActionEvent event) {}
+    private void register(ActionEvent event) throws IOException {
+        App.setRoot("home");
+    }
 }
