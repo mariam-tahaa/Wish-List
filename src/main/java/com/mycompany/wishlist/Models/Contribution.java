@@ -11,7 +11,6 @@ package com.mycompany.wishlist.Models;
 
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 public class Contribution {
 
