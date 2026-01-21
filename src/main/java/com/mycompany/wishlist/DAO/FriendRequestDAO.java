@@ -151,5 +151,4 @@ public class FriendRequestDAO {
         }
         return false;
     }
-
 }
