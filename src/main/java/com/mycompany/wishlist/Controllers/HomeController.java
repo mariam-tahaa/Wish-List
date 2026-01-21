@@ -34,28 +34,28 @@ public class HomeController {
     }
 
     @FXML
-    private void goToContributions(MouseEvent event) {
-        System.out.println("Go to Contributions");
+    private void goToContributions(MouseEvent event) throws IOException {
+        App.setRoot("contributions");
     }
 
     @FXML
-    private void goToNotifications(MouseEvent event) {
-        System.out.println("Go to Notifications");
+    private void goToNotifications(MouseEvent event) throws IOException {
+        App.setRoot("notifications");
     }
 
     @FXML
-    private void goToFriends(MouseEvent event) {
-        System.out.println("Go to Friends");
+    private void goToFriends(MouseEvent event) throws IOException {
+        App.setRoot("friends");
     }
 
     @FXML
-    private void goToFriendRequests(MouseEvent event) {
-        System.out.println("Go to Friend Requests");
+    private void goToFriendRequests(MouseEvent event) throws IOException {
+        App.setRoot("friendRequests");
     }
 
     @FXML
-    private void goToAllUsers(MouseEvent event) {
-        System.out.println("Go to All Users");
+    private void goToAllUsers(MouseEvent event) throws IOException {
+        App.setRoot("allUsers");
     }
 
     @FXML

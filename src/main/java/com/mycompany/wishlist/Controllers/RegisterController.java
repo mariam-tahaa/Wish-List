@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class RegisterController {
-     @FXML
+    @FXML
     private TextField name;
 
     @FXML

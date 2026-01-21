@@ -8,15 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-public class WishlistController {
-
+public class NotificationController {
     @FXML
-    private VBox wishlistPane;
-
-    @FXML
-    private void goToAddItem(MouseEvent event) throws IOException {
-        App.setRoot("addItem");
-    }
+    private VBox NotificationPane;
 
     @FXML
     private void goToHome(MouseEvent event) throws IOException {
@@ -52,14 +46,16 @@ public class WishlistController {
     private void goToAllUsers(MouseEvent event) throws IOException {
         App.setRoot("allUsers");
     }
-
+    
     @FXML
     private void logout(MouseEvent event) throws IOException {
         App.setRoot("index");
     }
 
     @FXML
-    private void deleteItem(MouseEvent event){
-        System.out.println("Delete clicked");
+    private void markRead(MouseEvent event){
+        System.out.println("Read clicked");
     }
+
+
 }

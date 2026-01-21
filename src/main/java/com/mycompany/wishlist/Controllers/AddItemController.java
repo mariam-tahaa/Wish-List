@@ -4,19 +4,28 @@ import java.io.IOException;
 
 import com.mycompany.wishlist.App;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-public class WishlistController {
+public class AddItemController {
+    @FXML
+    private TextField name;
 
     @FXML
-    private VBox wishlistPane;
+    private TextField price;
 
     @FXML
-    private void goToAddItem(MouseEvent event) throws IOException {
-        App.setRoot("addItem");
-    }
+    private TextField description;
+
+    @FXML
+    private Button addBtn;
+
+    @FXML
+    private VBox addPane;
 
     @FXML
     private void goToHome(MouseEvent event) throws IOException {
@@ -59,7 +68,7 @@ public class WishlistController {
     }
 
     @FXML
-    private void deleteItem(MouseEvent event){
-        System.out.println("Delete clicked");
+    private void add(ActionEvent event) throws IOException {
+        App.setRoot("wishlist");
     }
 }

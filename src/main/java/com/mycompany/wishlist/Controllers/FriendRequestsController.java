@@ -8,15 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-public class WishlistController {
-
+public class FriendRequestsController {
     @FXML
-    private VBox wishlistPane;
-
-    @FXML
-    private void goToAddItem(MouseEvent event) throws IOException {
-        App.setRoot("addItem");
-    }
+    private VBox requestsPane;
 
     @FXML
     private void goToHome(MouseEvent event) throws IOException {
@@ -59,7 +53,12 @@ public class WishlistController {
     }
 
     @FXML
-    private void deleteItem(MouseEvent event){
-        System.out.println("Delete clicked");
+    private void accept(MouseEvent event) {
+        System.out.println("accepted");
+    }
+
+    @FXML
+    private void decline(MouseEvent event) {
+        System.out.println("Declined");
     }
 }
