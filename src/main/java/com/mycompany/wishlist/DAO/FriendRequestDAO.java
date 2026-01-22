@@ -19,6 +19,7 @@ public class FriendRequestDAO {
 // 5- Prevent Duplicate Friend Requests
 // 6- Check if Two Users are Already Friends
 
+
 ////////////////////////////////////////////
 
     // 1- Insert a new friend request

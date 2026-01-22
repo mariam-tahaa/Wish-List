@@ -16,6 +16,9 @@ import java.util.List;
 // 3- Check if two users are already friends
 // 4- Delete friendship by user IDs
 
+//TODO                                                                                             0         1
+// method take current user id , returns all system users except friends with status indication(not friend, pending)
+
 ////////////////////////////////////////////
 
 public class FriendshipDAO {

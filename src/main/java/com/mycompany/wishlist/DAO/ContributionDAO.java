@@ -18,6 +18,8 @@ public class ContributionDAO {
     // Insert new Contribution
     // Get Contributions by Gift ID
     // Update Contribution Percentage
+    //TODO
+    //method take current user id returns all gifts in which he contributed + this gift owner
 
 ////////////////////////////////////////////
 
