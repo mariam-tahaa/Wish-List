@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import com.mycompany.wishlist.Helpers.DBConnection;
 
 /**
  * JavaFX App
@@ -34,6 +37,12 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        try {
+            DBConnection.getConnection();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         launch();
     }
 

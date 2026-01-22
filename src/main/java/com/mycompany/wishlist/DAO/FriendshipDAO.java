@@ -22,12 +22,14 @@ import java.util.List;
 ////////////////////////////////////////////
 
 public class FriendshipDAO {
-    // 1- Insert a new friendship
-    public boolean addFriendship(Friendship friendship) {
-        int u1 = Math.min(friendship.getUserId(), friendship.getFriendId());
-        int u2 = Math.max(friendship.getUserId(), friendship.getFriendId());
+    // 1- Add Friend
+    // When he presses add friend button on GUI, we insert a new record in
+    // friendrequest table with pending status as default
+    public boolean sendfriendrequest(int sender_id, int receiver_id) {
+        int u1 = Math.min(sender_id, receiver_id);
+        int u2 = Math.max(sender_id, receiver_id);
 
-        String sql = "INSERT INTO friendship (user_id, friend_id) VALUES (?, ?)";
+        String sql = "INSERT INTO friend_request (sender_id, receiver_id, status) VALUES (?, ?, 'PENDING')";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -43,6 +45,7 @@ public class FriendshipDAO {
         }
         return false;
     }
+    ///////////////////////////////////////////////////////////////////////////////////
 
     // 2- Get friends by user ID
     public List<Friendship> getFriendsByUserId(int userId) {
@@ -84,6 +87,23 @@ public class FriendshipDAO {
 
             return ps.executeQuery().next();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // check if there pending friend request between two users
+    public boolean isPendingRequestExists(int senderId, int receiverId) {
+        int u1 = Math.min(senderId, receiverId);
+        int u2 = Math.max(senderId, receiverId);
+
+        String sql = "SELECT 1 FROM friend_request WHERE sender_id = ? AND receiver_id = ? AND status = 'PENDING'";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, u1);
+            ps.setInt(2, u2);
+            return ps.executeQuery().next();
         } catch (SQLException e) {
             e.printStackTrace();
         }

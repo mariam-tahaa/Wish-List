@@ -23,15 +23,14 @@ public class FriendRequestDAO {
 ////////////////////////////////////////////
 
     // 1- Insert a new friend request
-    public boolean addFriendRequest(FriendRequest friendRequest) {
-        String sql = "INSERT INTO friend_request (sender_id, receiver_id, status) VALUES (?, ?, ?)";
+    public boolean addFriendRequest(int senderId, int receiverId) {
+        String sql = "INSERT INTO friend_request (sender_id, receiver_id, status) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, friendRequest.getSenderId());
-            ps.setInt(2, friendRequest.getReceiverId());
-            ps.setString(3, friendRequest.getStatus());
+            ps.setInt(1, senderId);
+            ps.setInt(2, receiverId);
 
             int rows = ps.executeUpdate();
             return rows > 0;
@@ -41,7 +40,8 @@ public class FriendRequestDAO {
         }
         return false;
 
-    }
+    } // Handled by MyFriendRequestService
+    /////////////////////////////////////////////////////////////////////////////////
 
     // 2- Get friend requests by user ID
     public List<FriendRequest> getFriendRequestsByUserId(int userId) {
@@ -129,7 +129,7 @@ public class FriendRequestDAO {
 
     // 6- Check if two users are already friends
     public boolean areUsersFriends(int userId1, int userId2) {
-        String sql = "SELECT COUNT(*) FROM friend_request WHERE " +
+        String sql = "SELECT COUNT(*) FROM friendship WHERE " +
                      "((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) " +
                      "AND status = 'ACCEPTED'";
 
@@ -152,4 +152,5 @@ public class FriendRequestDAO {
         }
         return false;
     }
+
 }
