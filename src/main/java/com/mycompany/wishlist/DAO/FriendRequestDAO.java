@@ -2,25 +2,25 @@ package com.mycompany.wishlist.DAO;
 
 import com.mycompany.wishlist.Helpers.DBConnection;
 import com.mycompany.wishlist.Models.FriendRequest;
+import com.mycompany.wishlist.Helpers.SessionManager;
 import java.sql.Connection;
+import java.util.List;
+import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FriendRequestDAO {
-////////////////////////////////////////////
+    ////////////////////////////////////////////
 
-// 1- Insert New Friend Request
-// 2- Get Friend Requests by User ID
-// 3- Accept Friend Request
-// 4- Decline Friend Request
-// 5- Prevent Duplicate Friend Requests
-// 6- Check if Two Users are Already Friends
+    // 1- Insert New Friend Request
+    // 2- Get Friend Requests by User ID
+    // 3- Accept Friend Request
+    // 4- Decline Friend Request
+    // 5- Prevent Duplicate Friend Requests
+    // 6- Check if Two Users are Already Friends
 
-
-////////////////////////////////////////////
+    ////////////////////////////////////////////
 
     // 1- Insert a new friend request
     public boolean addFriendRequest(int senderId, int receiverId) {
@@ -40,33 +40,28 @@ public class FriendRequestDAO {
         }
         return false;
 
-    } // Handled by MyFriendRequestService
-    /////////////////////////////////////////////////////////////////////////////////
+    }
 
     // 2- Get friend requests by user ID
-    public List<FriendRequest> getFriendRequestsByUserId(int userId) {
-        List<FriendRequest> friendRequests = new ArrayList<>();
-        String sql = "SELECT * FROM friend_request WHERE receiver_id = ? AND status = 'PENDING'";
-
+    public FriendRequest getRequestById(int requestId) {
+        String sql = "SELECT * FROM friend_request WHERE request_id = ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, userId);
+            ps.setInt(1, requestId);
             ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                FriendRequest friendRequest = new FriendRequest();
-                friendRequest.setReqId(rs.getInt("request_id"));
-                friendRequest.setSenderId(rs.getInt("sender_id"));
-                friendRequest.setReceiverId(rs.getInt("receiver_id"));
-                friendRequest.setStatus(rs.getString("status"));
-                friendRequests.add(friendRequest);
+            if (rs.next()) {
+                FriendRequest request = new FriendRequest();
+                request.setReqId(rs.getInt("request_id"));
+                request.setSenderId(rs.getInt("sender_id"));
+                request.setReceiverId(rs.getInt("receiver_id"));
+                request.setStatus(rs.getString("status"));
+                return request;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return friendRequests;
+        return null;
     }
 
     // 3- Accept Friend Request
@@ -130,8 +125,8 @@ public class FriendRequestDAO {
     // 6- Check if two users are already friends
     public boolean areUsersFriends(int userId1, int userId2) {
         String sql = "SELECT COUNT(*) FROM friendship WHERE " +
-                     "((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) " +
-                     "AND status = 'ACCEPTED'";
+                "((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) " +
+                "AND status = 'ACCEPTED'";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -151,6 +146,37 @@ public class FriendRequestDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    // 7- Get all pending friend requests for a user
+    public List<FriendRequest> getPendingFriendRequests() {
+        
+        int userId = SessionManager.getCurrentUser().getUserId();
+        List<FriendRequest> requests = new ArrayList<>();
+        
+        String sql = "SELECT * FROM friend_request WHERE receiver_id = ? AND status = 'PENDING'";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                FriendRequest request = new FriendRequest();
+
+                request.setReqId(rs.getInt("request_id"));
+                request.setSenderId(rs.getInt("sender_id"));
+                request.setReceiverId(rs.getInt("receiver_id"));
+                request.setStatus(rs.getString("status"));
+                requests.add(request);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return requests;
     }
 
 }

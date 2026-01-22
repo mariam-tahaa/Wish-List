@@ -2,7 +2,6 @@ package com.mycompany.wishlist.DAO;
 
 import com.mycompany.wishlist.Helpers.DBConnection;
 import com.mycompany.wishlist.Helpers.SessionManager;
-import com.mycompany.wishlist.Models.Friendship;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,11 +11,11 @@ import java.util.List;
 
 ////////////////////////////////////////////
 
-// 1- Insert a new friendship
-// 2- Get friends by user ID
-// 3- Check if two users are already friends
-// 4- Delete friendship by user IDs
-// 5- Get all users in the system with their friendship status with the given user
+// 1- Send Friend Request
+// 2- Check if two users are already friends
+// 3- Delete friendship by user IDs
+// 4- Get all users in the system with their friendship status with the given user
+// 5- Insert a new friendship
 
 //TODO                                                                                             0         1
 // method take current user id , returns all system users except friends with status indication(not friend, pending)
@@ -24,6 +23,7 @@ import java.util.List;
 ////////////////////////////////////////////
 
 public class FriendshipDAO {
+
     // 1- Add Friend
     // When he presses add friend button on GUI, we insert a new record in
     // friendrequest table with pending status as default
@@ -49,32 +49,7 @@ public class FriendshipDAO {
     } // handled by MyFriendRequestService
       ///////////////////////////////////////////////////////////////////////////////////
 
-    // 2- Get friends by user ID
-    public List<Friendship> getFriendsByUserId(int userId) {
-        List<Friendship> friendships = new ArrayList<>();
-        String sql = "SELECT * FROM friendship WHERE user_id = ? OR friend_id = ?";
-
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, userId);
-            ps.setInt(2, userId);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Friendship friendship = new Friendship();
-                friendship.setUserId(rs.getInt("user_id"));
-                friendship.setFriendId(rs.getInt("friend_id"));
-                friendships.add(friendship);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return friendships;
-    }
-
-    // 3- Check if two users are already friends
+    // 2- Check if two users are already friends
     public boolean areUsersFriends(int userId, int friendId) {
         int u1 = Math.min(userId, friendId);
         int u2 = Math.max(userId, friendId);
@@ -112,7 +87,7 @@ public class FriendshipDAO {
         return false;
     }
 
-    // 4- Delete friendship by user IDs
+    // 3- Delete friendship by user IDs
     public boolean deleteFriendshipByUserIds(int userId, int friendId) {
         String sql = "DELETE FROM friendship WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
 
@@ -133,7 +108,8 @@ public class FriendshipDAO {
         return false;
     }
 
-    // 5- Get all users in the system with their friendship status with the given
+    // 4- Get all users in the system with their friendship status with the given
+
     // All Users except current user
     public List<String> getAllUsersWithFriendshipStatus() {
         int userId = SessionManager.getCurrentUser().getUserId();
@@ -173,4 +149,30 @@ public class FriendshipDAO {
 
         return usersWithStatus;
     }
+
+    // 5- Insert a new friendship
+    public boolean addFriendship(int senderId, int receiverId) {
+        int u1 = Math.min(senderId, receiverId);
+        int u2 = Math.max(senderId, receiverId);
+
+        // optional: check already friends
+        if (areUsersFriends(u1, u2))
+            return false;
+
+        String sql = "INSERT INTO friendship (user_id, friend_id) VALUES (?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, u1);
+            ps.setInt(2, u2);
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

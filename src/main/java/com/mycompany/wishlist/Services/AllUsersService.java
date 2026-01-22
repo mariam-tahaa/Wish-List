@@ -4,7 +4,7 @@ import com.mycompany.wishlist.DAO.FriendshipDAO;
 import com.mycompany.wishlist.DAO.FriendRequestDAO;
 import com.mycompany.wishlist.Helpers.SessionManager;
 
-//////////////////////////////////////////////////
+//////////////////////  ALL USERS  ////////////////////////////
 
 // Send friend request method
 // Unfriend method
@@ -12,7 +12,7 @@ import com.mycompany.wishlist.Helpers.SessionManager;
 //////////////////////////////////////////////////
 
 // Service layer to handle friendRequest operations
-public class MyFreindRequestService {
+public class AllUsersService {
     private FriendshipDAO friendshipDAO = new FriendshipDAO();
     private FriendRequestDAO friendRequestDAO = new FriendRequestDAO();
 
