@@ -25,7 +25,7 @@
 
     <HBox>
 
-        <!-- ================= SIDEBAR ================= -->
+        <!-- SIDEBAR (Same as before) -->
         <VBox prefWidth="260"
               spacing="15"
               style="-fx-background-color: rgba(0,0,0,0.85);">
