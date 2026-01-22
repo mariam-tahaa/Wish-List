@@ -63,4 +63,22 @@ public class GiftDAO {
 
         return gifts;
     }
+    public boolean deleteGift(int giftId, int userId) {
+        String sql = "DELETE FROM gift WHERE gift_id = ? AND owner_user_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, giftId);
+            ps.setInt(2, userId);
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
