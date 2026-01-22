@@ -4,6 +4,13 @@ import com.mycompany.wishlist.DAO.FriendshipDAO;
 import com.mycompany.wishlist.DAO.FriendRequestDAO;
 import com.mycompany.wishlist.Helpers.SessionManager;
 
+//////////////////////////////////////////////////
+
+// Send friend request method
+// Unfriend method
+
+//////////////////////////////////////////////////
+
 // Service layer to handle friendRequest operations
 public class MyFreindRequestService {
     private FriendshipDAO friendshipDAO = new FriendshipDAO();
@@ -32,5 +39,11 @@ public class MyFreindRequestService {
         // send request
         return friendRequestDAO.addFriendRequest(senderId, receiverId);
 
+    }
+
+    // unfriend
+    public boolean unfriend(int friendId) {
+        int userId = SessionManager.getCurrentUser().getUserId();
+        return friendshipDAO.deleteFriendshipByUserIds(userId, friendId);
     }
 }

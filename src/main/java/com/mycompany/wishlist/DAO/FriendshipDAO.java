@@ -1,6 +1,7 @@
 package com.mycompany.wishlist.DAO;
 
 import com.mycompany.wishlist.Helpers.DBConnection;
+import com.mycompany.wishlist.Helpers.SessionManager;
 import com.mycompany.wishlist.Models.Friendship;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ import java.util.List;
 // 2- Get friends by user ID
 // 3- Check if two users are already friends
 // 4- Delete friendship by user IDs
+// 5- Get all users in the system with their friendship status with the given user
 
 //TODO                                                                                             0         1
 // method take current user id , returns all system users except friends with status indication(not friend, pending)
@@ -44,8 +46,8 @@ public class FriendshipDAO {
             e.printStackTrace();
         }
         return false;
-    }
-    ///////////////////////////////////////////////////////////////////////////////////
+    } // handled by MyFriendRequestService
+      ///////////////////////////////////////////////////////////////////////////////////
 
     // 2- Get friends by user ID
     public List<Friendship> getFriendsByUserId(int userId) {
@@ -131,4 +133,44 @@ public class FriendshipDAO {
         return false;
     }
 
+    // 5- Get all users in the system with their friendship status with the given
+    // All Users except current user
+    public List<String> getAllUsersWithFriendshipStatus() {
+        int userId = SessionManager.getCurrentUser().getUserId();
+        List<String> usersWithStatus = new ArrayList<>();
+
+        String sql = "SELECT u.user_id, u.username, " +
+                "CASE " +
+                "WHEN f.user_id IS NOT NULL THEN 'FRIEND' " +
+                "WHEN fr.status = 'PENDING' AND fr.sender_id = ? THEN 'REQUEST_SENT' " +
+                "WHEN fr.status = 'PENDING' AND fr.receiver_id = ? THEN 'REQUEST_RECEIVED' " +
+                "ELSE 'NOT_FRIEND' " +
+                "END AS friendship_status " +
+                "FROM app_user u " +
+                "LEFT JOIN friendship f " +
+                "ON ( (u.user_id = f.friend_id AND f.user_id = ?) OR (u.user_id = f.user_id AND f.friend_id = ?) ) " +
+                "LEFT JOIN friend_request fr " +
+                "ON ( (u.user_id = fr.receiver_id AND fr.sender_id = ?) OR (u.user_id = fr.sender_id AND fr.receiver_id = ?) ) "
+                +
+                "WHERE u.user_id != ?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            for (int i = 1; i <= 7; i++)
+                ps.setInt(i, userId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String userInfo = "Username: " + rs.getString("username") +
+                        " Status: " + rs.getString("friendship_status");
+                usersWithStatus.add(userInfo);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usersWithStatus;
+    }
 }
