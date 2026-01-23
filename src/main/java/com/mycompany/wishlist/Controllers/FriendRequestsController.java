@@ -26,12 +26,6 @@ public class FriendRequestsController {
     private UserDAO userDao = new UserDAO();
 
     public void initialize(){
-        User user = new User();
-        user.setUserId(1);
-        user.setUserName("Ahmed Ali");
-        user.setMail("Ahmed@mail.com");
-        user.setPass("pass");
-        SessionManager.setCurrentUser(user);
         loadFriendRequests();
     }
 
