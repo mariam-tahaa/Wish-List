@@ -49,7 +49,7 @@ public class App extends Application {
         }
 
 
-
+/* 
 // test userservice
 UserService userService = new UserService();
 User user = new User();
@@ -58,7 +58,7 @@ user.setMail("mazen@gmail.com");
 user.setPass("password123");
 boolean registered = userService.register(user, "password123");
 System.out.println("User registered: " + registered);   
-
+*/
         launch(args);
     }
 
