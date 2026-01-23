@@ -25,6 +25,7 @@ public class FriendshipDAO {
     // 1- Add Friend
     // When he presses add friend button on GUI, we insert a new record in
     // friendrequest table with pending status as default
+    // Used IN ALL USERS SERVICE
     public boolean sendfriendrequest(int sender_id, int receiver_id) {
         int u1 = Math.min(sender_id, receiver_id);
         int u2 = Math.max(sender_id, receiver_id);
@@ -48,6 +49,7 @@ public class FriendshipDAO {
       ///////////////////////////////////////////////////////////////////////////////////
 
     // 2- Check if two users are already friends
+    // Used in AllUsersService before sending a new friend request
     public boolean areUsersFriends(int userId, int friendId) {
         int u1 = Math.min(userId, friendId);
         int u2 = Math.max(userId, friendId);
@@ -69,6 +71,7 @@ public class FriendshipDAO {
     }
 
     // 3- check if there pending friend request between two users
+    // Used in AllUsersService before sending a new friend request
     public boolean isPendingRequestExists(int senderId, int receiverId) {
         int u1 = Math.min(senderId, receiverId);
         int u2 = Math.max(senderId, receiverId);
@@ -86,6 +89,7 @@ public class FriendshipDAO {
     }
 
     // 4- Delete friendship by user IDs
+    // Used in AllUsersService
     public boolean deleteFriendshipByUserIds(int userId, int friendId) {
         String sql = "DELETE FROM friendship WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
 
@@ -107,6 +111,7 @@ public class FriendshipDAO {
     }
 
     // 5- Get all users in the system with their friendship status with the given
+    // Used IN ALL USERS SERVICE
     public List<String> getAllUsersWithFriendshipStatus(int userId) {
         List<String> usersWithStatus = new ArrayList<>();
 
@@ -146,6 +151,7 @@ public class FriendshipDAO {
     }
 
     // 6- Insert a new friendship
+    // Used IN FRIEND REQUESTS SERVICE
     public boolean addFriendship(int senderId, int receiverId) {
         int u1 = Math.min(senderId, receiverId);
         int u2 = Math.max(senderId, receiverId);
@@ -171,6 +177,7 @@ public class FriendshipDAO {
     }
 
     // 7- Get all friends of a user
+    // Used IN FREINDS SERVICE
     public List<Integer> getAllFriends(int userId) {
         List<Integer> friends = new ArrayList<>();
         String sql = "SELECT CASE WHEN user_id = ? THEN friend_id ELSE user_id END AS friend_id " +

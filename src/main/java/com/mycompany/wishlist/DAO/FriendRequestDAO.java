@@ -23,9 +23,11 @@ public class FriendRequestDAO {
 
     ////////////////////////////////////////////
 
+    // IF THERE IS REQUEST FROM ONE USER TO ANOTHER, THEN WE INSERT A RECORD IN FRIEND_REQUEST TABLE
     // 1- Insert a new friend request
+    // Used IN ALL USERS SERVICE
     public boolean addFriendRequest(int senderId, int receiverId) {
-        String sql = "INSERT INTO friend_request (sender_id, receiver_id, status) VALUES (?, ?)";
+        String sql = "INSERT INTO friend_request (sender_id, receiver_id) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -37,13 +39,14 @@ public class FriendRequestDAO {
             return rows > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Fails to add friend request");
         }
-        return false;
 
     }
 
+    // WHEN WE OPEN THE FRIEND REQUESTS PAGE, WE GET ALL PENDING REQUESTS FOR THE LOGGED IN USER
     // 2- Get friend requests by user ID
+    // Used IN FRIEND REQUESTS SERVICE
     public FriendRequest getRequestById(int requestId) {
         String sql = "SELECT * FROM friend_request WHERE request_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -60,12 +63,14 @@ public class FriendRequestDAO {
                 return request;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Fails to get friend request by ID");
         }
         return null;
     }
 
+    // AFTER ACCEPTING A FRIEND REQUEST, IN FREND REQUEST PAGE, WE UPDATE THE STATUS TO 'ACCEPTED'
     // 3- Accept Friend Request
+    // Used IN FRIEND REQUESTS SERVICE
     public boolean acceptedFriendRequest(int requestId) {
         String sql = "UPDATE friend_request SET status = 'ACCEPTED' WHERE request_id = ? AND status = 'PENDING'";
 
@@ -78,12 +83,13 @@ public class FriendRequestDAO {
             return rows > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Fails to accept friend request");
         }
-        return false;
     }
 
+    // AFTER DECLINING A FRIEND REQUEST, IN FREND REQUEST PAGE, WE UPDATE THE STATUS TO 'DECLINED'
     // 4- Decline Friend Request
+    // Used IN FRIEND REQUESTS SERVICE
     public boolean declineFriendRequest(int requestId) {
         String sql = "UPDATE friend_request SET status = 'DECLINED' WHERE request_id = ? AND status = 'PENDING'";
 
@@ -96,12 +102,14 @@ public class FriendRequestDAO {
             return rows > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Fails to decline friend request");
         }
-        return false;
     }
 
-    // 5- Prevent duplicate friend requests
+    //////////////// SOME CHECKS ////////////////////////
+    
+    // 5- check duplicate friend requests
+    // Used in AllUsersService before sending a new friend request
     public boolean isDuplicateRequest(int senderId, int receiverId) {
         String sql = "SELECT COUNT(*) FROM friend_request WHERE sender_id = ? AND receiver_id = ? AND status = 'PENDING'";
 
@@ -118,12 +126,13 @@ public class FriendRequestDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Fails to check duplicate friend request");
         }
         return false;
     }
 
     // 6- Check if two users are already friends
+    // Used in AllUsersService before sending a new friend request
     public boolean areUsersFriends(int userId1, int userId2) {
         String sql = "SELECT COUNT(*) FROM friendship WHERE " +
                 "((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) " +
@@ -144,12 +153,13 @@ public class FriendRequestDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Fails to check if users are friends");
         }
         return false;
     }
 
     // 7- Get all pending friend requests for a user
+    // Used IN FRIEND REQUESTS SERVICE
     public List<FriendRequest> getPendingFriendRequests(int userId) {
         List<FriendRequest> requests = new ArrayList<>();
         
@@ -173,7 +183,7 @@ public class FriendRequestDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Fails to get pending friend requests");
         }
         return requests;
     }

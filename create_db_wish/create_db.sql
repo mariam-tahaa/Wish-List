@@ -71,6 +71,7 @@ CREATE TABLE friend_request (
     CONSTRAINT fk_req_receiver FOREIGN KEY (receiver_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
     CONSTRAINT chk_no_self_req CHECK (sender_id != receiver_id)
 )TABLESPACE USERS;
+
 -- Trigger to auto-increment req_id
 CREATE OR REPLACE TRIGGER friend_request_before_insert
 BEFORE INSERT ON friend_request
