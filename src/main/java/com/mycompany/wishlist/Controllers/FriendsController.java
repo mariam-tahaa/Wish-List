@@ -29,12 +29,6 @@ public class FriendsController {
 
     @FXML
     private void initialize() {
-        User user = new User();
-        user.setUserId(1);
-        user.setUserName("Ahmed Ali");
-        user.setMail("Ahmed@mail.com");
-        user.setPass("pass");
-        SessionManager.setCurrentUser(user);
         loadFriends();
     }
 
@@ -147,6 +141,6 @@ public class FriendsController {
     
     private void unfriend(MouseEvent event, int friendId) {
         boolean success = friendsService.unfriend(friendId);
-        if (success) loadFriends(); // Reload the list
+        if (success) loadFriends();
     }
 }
