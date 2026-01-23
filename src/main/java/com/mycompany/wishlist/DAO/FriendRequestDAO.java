@@ -2,7 +2,6 @@ package com.mycompany.wishlist.DAO;
 
 import com.mycompany.wishlist.Helpers.DBConnection;
 import com.mycompany.wishlist.Models.FriendRequest;
-import com.mycompany.wishlist.Helpers.SessionManager;
 import java.sql.Connection;
 import java.util.List;
 import java.util.ArrayList;

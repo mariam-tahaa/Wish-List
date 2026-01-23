@@ -1,7 +1,6 @@
 package com.mycompany.wishlist.DAO;
 
 import com.mycompany.wishlist.Helpers.DBConnection;
-import com.mycompany.wishlist.Helpers.SessionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
