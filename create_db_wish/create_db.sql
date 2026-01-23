@@ -7,6 +7,8 @@ SELECT * FROM app_user;
 SELECT tablespace_name, bytes, max_bytes
 FROM user_ts_quotas;
 
+
+
 -- Set the schema context
 ALTER SESSION SET CURRENT_SCHEMA =  Iwish;
 grant CREATE TABLE to Iwish;
@@ -55,7 +57,9 @@ CREATE TABLE gift (
 
 ALTER TABLE gift 
 ADD description VARCHAR2(500);
-
+--INSERT INTO gift (gift_id, gift_name, price, status, owner_user_id, description)
+--VALUES (1, 'Sample Gift', 49.99, 'Incomplete', 1, 'This is a sample gift description.');
+SELECT * FROM gift;
 
 
 

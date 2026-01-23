@@ -7,10 +7,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import com.mycompany.wishlist.Helpers.DBConnection;
+import com.mycompany.wishlist.Models.Contribution;
 import com.mycompany.wishlist.Models.User;
+import com.mycompany.wishlist.Services.ContributionService;
 import com.mycompany.wishlist.Services.UserService;
 
 /**
@@ -59,7 +62,23 @@ user.setPass("password123");
 boolean registered = userService.register(user, "password123");
 System.out.println("User registered: " + registered);   
 */
-        launch(args);
+ContributionService contributionService = new ContributionService();
+        
+        // Create a test contribution
+        Contribution myContribution = new Contribution();
+        myContribution.setContributorId(1); // Ensure this user exists in your DB
+        myContribution.setGiftId(1);        // Ensure this gift exists in your DB
+        myContribution.setPercentage(new BigDecimal("50.00"));
+        
+        // Attempt to add
+        boolean success = contributionService.addContribution(myContribution);
+        
+        if (success) {
+            System.out.println("Successfully added contribution!");
+        } else {
+            System.out.println("Failed to add contribution. Check validation or DB.");
+        }
+        
+    
     }
-
 }

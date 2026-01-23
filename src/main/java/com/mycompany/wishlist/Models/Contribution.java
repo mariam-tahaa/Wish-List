@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class Contribution {
 
     private int contributionId;     // maps to contribution_id
-    private int contributorId;      // maps to contributor_id (FK)
+    private int contributorId;      // maps to contributor_id (FK) to-User 
     private int giftId;             // maps to gift_id (FK)
     private BigDecimal percentage;  // maps to percentage (0 < x <= 100)
 
