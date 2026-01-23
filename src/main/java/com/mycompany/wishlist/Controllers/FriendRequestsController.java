@@ -42,7 +42,7 @@ public class FriendRequestsController {
 
             if (requests.isEmpty()) {
                 Label empty = new Label("No friend requests");
-                empty.setStyle("-fx-text-fill: white;");
+                empty.setStyle("-fx-text-fill: white; -fx-font-size: 24px; -fx-font-family: 'Arial Rounded MT Bold';");
                 requestsPane.getChildren().add(empty);
                 return;
             }
