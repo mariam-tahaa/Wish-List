@@ -28,7 +28,7 @@ public class AllUsersController {
 
     public void initialize(){
         User user = new User();
-        user.setUserId(2);
+        user.setUserId(1);
         user.setUserName("Ahmed Ali");
         user.setMail("Ahmed@mail.com");
         user.setPass("pass");
@@ -74,16 +74,16 @@ public class AllUsersController {
                 action.setOnMouseClicked(e -> unfriendUser(userId));
                 break;
 
-            case "REQUEST_SENT":
+            case "PENDING":
                 action.setText("Pending");
                 action.setStyle("-fx-text-fill: #f1c40f; -fx-font-size: 24; -fx-font-weight: bold; -fx-cursor: hand;");
                 break;
 
-            case "REQUEST_RECEIVED":
-                action.setText("Accept");
-                action.setStyle("-fx-text-fill: #2ecc71; -fx-font-size: 24; -fx-font-weight: bold; -fx-cursor: hand;");
-                action.setOnMouseClicked(e -> sendRequest(userId));
-                break;
+            // case "REQUEST_RECEIVED":
+            //     action.setText("Accept");
+            //     action.setStyle("-fx-text-fill: #2ecc71; -fx-font-size: 24; -fx-font-weight: bold; -fx-cursor: hand;");
+            //     action.setOnMouseClicked(e -> sendRequest(userId));
+            //     break;
 
             default:
                 action.setText("+ Add Friend");

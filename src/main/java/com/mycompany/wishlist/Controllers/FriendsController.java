@@ -30,7 +30,7 @@ public class FriendsController {
     @FXML
     private void initialize() {
         User user = new User();
-        user.setUserId(2);
+        user.setUserId(1);
         user.setUserName("Ahmed Ali");
         user.setMail("Ahmed@mail.com");
         user.setPass("pass");
