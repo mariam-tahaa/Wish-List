@@ -53,6 +53,12 @@ CREATE TABLE gift (
     CONSTRAINT fk_gift_owner FOREIGN KEY (owner_user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 )TABLESPACE USERS;
 
+ALTER TABLE gift 
+ADD description VARCHAR2(500);
+
+
+
+
 CREATE OR REPLACE TRIGGER gift_before_insert
 BEFORE INSERT ON gift
 FOR EACH ROW
