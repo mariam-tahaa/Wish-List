@@ -25,15 +25,11 @@ public class AllUsersController {
     private FriendRequestsService.FriendRequestService requestService =
         new FriendRequestsService().new FriendRequestService();
     
+    private User currentUser;
 
     public void initialize(){
-        User user = new User();
-        user.setUserId(1);
-        user.setUserName("Ahmed Ali");
-        user.setMail("Ahmed@mail.com");
-        user.setPass("pass");
-        SessionManager.setCurrentUser(user);
         loadAllUsers();
+        
     }
 
     private void loadAllUsers() {
