@@ -19,6 +19,8 @@ public class FriendRequestDAO {
     // 4- Decline Friend Request
     // 5- Prevent Duplicate Friend Requests
     // 6- Check if Two Users are Already Friends
+    // 7- Get all pending friend requests for a user
+
 
     ////////////////////////////////////////////
 
@@ -149,9 +151,7 @@ public class FriendRequestDAO {
     }
 
     // 7- Get all pending friend requests for a user
-    public List<FriendRequest> getPendingFriendRequests() {
-        
-        int userId = SessionManager.getCurrentUser().getUserId();
+    public List<FriendRequest> getPendingFriendRequests(int userId) {
         List<FriendRequest> requests = new ArrayList<>();
         
         String sql = "SELECT * FROM friend_request WHERE receiver_id = ? AND status = 'PENDING'";

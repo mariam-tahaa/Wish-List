@@ -13,12 +13,11 @@ import java.util.List;
 
 // 1- Send Friend Request
 // 2- Check if two users are already friends
-// 3- Delete friendship by user IDs
-// 4- Get all users in the system with their friendship status with the given user
-// 5- Insert a new friendship
-
-//TODO                                                                                             0         1
-// method take current user id , returns all system users except friends with status indication(not friend, pending)
+// 3- check if there pending friend request between two users
+// 4- Delete friendship by user IDs
+// 5- Get all users in the system with their friendship status with the given user
+// 6- Insert a new friendship
+// 7- Get all friends of a user
 
 ////////////////////////////////////////////
 
@@ -70,7 +69,7 @@ public class FriendshipDAO {
         return false;
     }
 
-    // check if there pending friend request between two users
+    // 3- check if there pending friend request between two users
     public boolean isPendingRequestExists(int senderId, int receiverId) {
         int u1 = Math.min(senderId, receiverId);
         int u2 = Math.max(senderId, receiverId);
@@ -87,7 +86,7 @@ public class FriendshipDAO {
         return false;
     }
 
-    // 3- Delete friendship by user IDs
+    // 4- Delete friendship by user IDs
     public boolean deleteFriendshipByUserIds(int userId, int friendId) {
         String sql = "DELETE FROM friendship WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
 
@@ -108,11 +107,8 @@ public class FriendshipDAO {
         return false;
     }
 
-    // 4- Get all users in the system with their friendship status with the given
-
-    // All Users except current user
-    public List<String> getAllUsersWithFriendshipStatus() {
-        int userId = SessionManager.getCurrentUser().getUserId();
+    // 5- Get all users in the system with their friendship status with the given
+    public List<String> getAllUsersWithFriendshipStatus(int userId) {
         List<String> usersWithStatus = new ArrayList<>();
 
         String sql = "SELECT u.user_id, u.username, " +
@@ -150,12 +146,12 @@ public class FriendshipDAO {
         return usersWithStatus;
     }
 
-    // 5- Insert a new friendship
+    // 6- Insert a new friendship
     public boolean addFriendship(int senderId, int receiverId) {
         int u1 = Math.min(senderId, receiverId);
         int u2 = Math.max(senderId, receiverId);
 
-        // optional: check already friends
+        // check already friends
         if (areUsersFriends(u1, u2))
             return false;
 
@@ -173,6 +169,29 @@ public class FriendshipDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    // 7- Get all friends of a user
+    public List<Integer> getAllFriends(int userId) {
+        List<Integer> friends = new ArrayList<>();
+        String sql = "SELECT CASE WHEN user_id = ? THEN friend_id ELSE user_id END AS friend_id " +
+                "FROM friendship WHERE user_id = ? OR friend_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, userId);
+            ps.setInt(3, userId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                friends.add(rs.getInt("friend_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return friends;
     }
 
 }
