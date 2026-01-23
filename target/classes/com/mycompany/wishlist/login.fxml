@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <StackPane prefHeight="600.0" prefWidth="900.0"
@@ -27,41 +26,62 @@
     <!-- Login form -->
     <VBox alignment="CENTER" fillWidth="false">
         <children>
-            <VBox prefWidth="420.0" spacing="20.0" style="-fx-background-color: rgba(12, 12, 12, 0.9); -fx-background-radius: 50;">
-                <padding><Insets top="40.0" right="50.0" bottom="40.0" left="50.0"/></padding>
+            <VBox prefWidth="420.0" spacing="15.0" style="-fx-background-color: rgba(12, 12, 12, 0.9); -fx-background-radius: 50;">
+                <padding><Insets top="30.0" right="50.0" bottom="30.0" left="50.0"/></padding>
+
+                <!-- General error/success message -->
+                <Label fx:id="generalError" textFill="RED" visible="false"
+                       prefHeight="30.0" wrapText="true" maxWidth="320.0"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-alignment: center;">
+                </Label>
 
                 <!-- Mail input -->
-                <VBox spacing="8.0">
-                    <Label text="Mail:" textFill="WHITE">
+                <VBox spacing="5.0">
+                    <Label text="Email:" textFill="WHITE">
                         <font><Font name="Arial Rounded MT Bold" size="20.0"/></font>
                     </Label>
-                    <TextField fx:id="mail" prefHeight="45.0" promptText="mail"
+                    <TextField fx:id="mail" prefHeight="45.0" promptText="email"
                                style="-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: white; -fx-background-radius: 10;">
                         <font><Font size="18.0"/></font>
                     </TextField>
+                    <Label fx:id="mailError" textFill="RED" visible="false"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold;">
+                    </Label>
                 </VBox>
 
                 <!-- Password input -->
-                <VBox spacing="8.0">
+                <VBox spacing="5.0">
                     <Label text="Password:" textFill="WHITE">
                         <font><Font name="Arial Rounded MT Bold" size="20.0"/></font>
                     </Label>
-                    <StackPane alignment="CENTER_RIGHT">
+                    <StackPane fx:id="passwordContainer" alignment="CENTER_RIGHT">
                         <children>
-                            <PasswordField fx:id="password" prefHeight="45.0" promptText="Password"
+                            <!-- Hidden password field (default) -->
+                            <PasswordField fx:id="passwordField" prefHeight="45.0" promptText="Password"
                                            style="-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: white; -fx-background-radius: 10;">
                                 <font><Font size="18.0"/></font>
                             </PasswordField>
+
+                            <!-- Visible password field (hidden initially) -->
+                            <TextField fx:id="visiblePasswordField" prefHeight="45.0" promptText="Password"
+                                       style="-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: white; -fx-background-radius: 10;">
+                                <font><Font size="18.0"/></font>
+                            </TextField>
+
+                            <!-- Eye icon -->
                             <Label fx:id="eyeIcon" onMouseClicked="#changeVisibility" text="👁" textFill="WHITE" style="-fx-cursor: hand;">
                                 <padding><Insets right="15.0"/></padding>
                             </Label>
                         </children>
                     </StackPane>
+                    <Label fx:id="passwordError" textFill="RED" visible="false"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold;">
+                    </Label>
                 </VBox>
 
                 <!-- Login button -->
                 <VBox alignment="CENTER">
-                    <padding><Insets top="20.0"/></padding>
+                    <padding><Insets top="15.0"/></padding>
                     <children>
                         <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="140.0"
                                 style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;"
