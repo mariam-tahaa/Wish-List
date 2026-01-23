@@ -19,7 +19,7 @@ CREATE SEQUENCE gift_seq;
 CREATE SEQUENCE friend_req_seq;
 CREATE SEQUENCE notification_seq;
 CREATE SEQUENCE contribution_seq;
-
+ALTER TRIGGER app_user_before_insert ENABLE;
 -- 1. app_user
 CREATE  TABLE app_user (
     user_id      NUMBER PRIMARY KEY,
