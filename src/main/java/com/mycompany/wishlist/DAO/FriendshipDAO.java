@@ -115,7 +115,7 @@ public class FriendshipDAO {
     public List<String> getAllUsersWithFriendshipStatus(int userId) {
         List<String> usersWithStatus = new ArrayList<>();
 
-        String sql = "SELECT u.user_id, u.username, " +
+        String sql = "SELECT u.user_id, u.user_name, " +
                 "CASE " +
                 "WHEN f.user_id IS NOT NULL THEN 'FRIEND' " +
                 "WHEN fr.status = 'PENDING' AND fr.sender_id = ? THEN 'REQUEST_SENT' " +
@@ -138,8 +138,9 @@ public class FriendshipDAO {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String userInfo = "Username: " + rs.getString("username") +
-                        " Status: " + rs.getString("friendship_status");
+                String userInfo = "ID: " + rs.getString("user_id") 
+                                + " | Username: " + rs.getString("user_name") 
+                                + " | Status: " + rs.getString("friendship_status");
                 usersWithStatus.add(userInfo);
             }
 
