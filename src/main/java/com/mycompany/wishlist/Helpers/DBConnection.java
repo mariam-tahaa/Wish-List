@@ -13,8 +13,13 @@ public class DBConnection {
  
     
      private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/XE"; 
+<<<<<<< HEAD
     private static final String DB_USER = "Iwish"; 
     private static final String DB_PASSWORD = "Iwish"; 
+=======
+    private static final String DB_USER = "Iwish"; // Corrected to match the screenshot
+    private static final String DB_PASSWORD = "Iwish"; // *** MUST BE REPLACED ***
+>>>>>>> 88788676d13bf974b2c886c733b95b8c5e100e0a
 
     /**
      * Establishes and returns a connection to the Oracle database.
