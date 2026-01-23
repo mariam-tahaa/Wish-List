@@ -10,11 +10,10 @@ import java.sql.SQLException;
  */
 public class DBConnection {
 
- 
-    
-    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/XE"; 
+    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/XE";
     private static final String DB_USER = "Iwish"; 
     private static final String DB_PASSWORD = "Iwish"; 
+
 
     /**
      * Establishes and returns a connection to the Oracle database.
