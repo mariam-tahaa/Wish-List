@@ -27,7 +27,7 @@ public class FriendRequestsController {
 
     public void initialize(){
         User user = new User();
-        user.setUserId(2);
+        user.setUserId(1);
         user.setUserName("Ahmed Ali");
         user.setMail("Ahmed@mail.com");
         user.setPass("pass");
@@ -42,7 +42,7 @@ public class FriendRequestsController {
 
             if (requests.isEmpty()) {
                 Label empty = new Label("No friend requests");
-                empty.setStyle("-fx-text-fill: white;");
+                empty.setStyle("-fx-text-fill: white; -fx-font-size: 24px; -fx-font-family: 'Arial Rounded MT Bold';");
                 requestsPane.getChildren().add(empty);
                 return;
             }
