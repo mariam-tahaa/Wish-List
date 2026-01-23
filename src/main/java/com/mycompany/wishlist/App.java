@@ -61,13 +61,14 @@ user.setMail("mazen@gmail.com");
 user.setPass("password123");
 boolean registered = userService.register(user, "password123");
 System.out.println("User registered: " + registered);   
-*/
+
 ContributionService contributionService = new ContributionService();
         
         // Create a test contribution
         Contribution myContribution = new Contribution();
-        myContribution.setContributorId(1); // Ensure this user exists in your DB
-        myContribution.setGiftId(1);        // Ensure this gift exists in your DB
+        //should be existing ids in db
+        myContribution.setContributorId(1); 
+        myContribution.setGiftId(1);         
         myContribution.setPercentage(new BigDecimal("50.00"));
         
         // Attempt to add
@@ -76,8 +77,9 @@ ContributionService contributionService = new ContributionService();
         if (success) {
             System.out.println("Successfully added contribution!");
         } else {
-            System.out.println("Failed to add contribution. Check validation or DB.");
+            System.out.println("Failed to add contribution -_-");
         }
+            */
         
     
     }
