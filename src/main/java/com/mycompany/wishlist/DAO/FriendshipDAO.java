@@ -30,7 +30,7 @@ public class FriendshipDAO {
         int u1 = Math.min(sender_id, receiver_id);
         int u2 = Math.max(sender_id, receiver_id);
 
-        String sql = "INSERT INTO friend_request (sender_id, receiver_id, status) VALUES (?, ?, 'PENDING')";
+        String sql = "INSERT INTO friendship (user_id, friend_id) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -92,17 +92,28 @@ public class FriendshipDAO {
     // Used in AllUsersService
     public boolean deleteFriendshipByUserIds(int userId, int friendId) {
         String sql = "DELETE FROM friendship WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
+         String deleteFriendRequestSql =
+        "DELETE FROM friend_request " +
+        "WHERE (sender_id = ? AND receiver_id = ?) " +
+        "   OR (sender_id = ? AND receiver_id = ?)";
 
         try (Connection conn = DBConnection.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+                 PreparedStatement ps1 = conn.prepareStatement(sql);
+            PreparedStatement ps2 = conn.prepareStatement(deleteFriendRequestSql)) {
 
-            ps.setInt(1, userId);
-            ps.setInt(2, friendId);
-            ps.setInt(3, friendId);
-            ps.setInt(4, userId);
+            ps1.setInt(1, userId);
+            ps1.setInt(2, friendId);
+            ps1.setInt(3, friendId);
+            ps1.setInt(4, userId);
+            ps1.executeUpdate();
 
-            int rows = ps.executeUpdate();
-            return rows > 0;
+            ps2.setInt(1, userId);
+            ps2.setInt(2, friendId);
+            ps2.setInt(3, friendId);
+            ps2.setInt(4, userId);
+            ps2.executeUpdate();
+
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,31 +126,34 @@ public class FriendshipDAO {
     public List<String> getAllUsersWithFriendshipStatus(int userId) {
         List<String> usersWithStatus = new ArrayList<>();
 
-        String sql = "SELECT u.user_id, u.username, " +
-                "CASE " +
-                "WHEN f.user_id IS NOT NULL THEN 'FRIEND' " +
-                "WHEN fr.status = 'PENDING' AND fr.sender_id = ? THEN 'REQUEST_SENT' " +
-                "WHEN fr.status = 'PENDING' AND fr.receiver_id = ? THEN 'REQUEST_RECEIVED' " +
-                "ELSE 'NOT_FRIEND' " +
-                "END AS friendship_status " +
-                "FROM app_user u " +
-                "LEFT JOIN friendship f " +
-                "ON ( (u.user_id = f.friend_id AND f.user_id = ?) OR (u.user_id = f.user_id AND f.friend_id = ?) ) " +
-                "LEFT JOIN friend_request fr " +
-                "ON ( (u.user_id = fr.receiver_id AND fr.sender_id = ?) OR (u.user_id = fr.sender_id AND fr.receiver_id = ?) ) "
-                +
-                "WHERE u.user_id != ?";
+        String sql = "SELECT u.user_id, u.user_name, " +
+             "CASE " +
+             "WHEN f.status = 'ACCEPTED' THEN 'FRIEND' " +
+             "WHEN f.status = 'PENDING' THEN 'PENDING' " +
+             "ELSE 'NOT_FRIEND' " +
+             "END AS friendship_status " +
+             "FROM app_user u " +
+             "LEFT JOIN friend_request f " +
+             "ON ( " +
+             "(u.user_id = f.receiver_id AND f.sender_id = ?) " +
+             "OR " +
+             "(u.user_id = f.sender_id AND f.receiver_id = ?) " +
+             ") " +
+             "WHERE u.user_id != ?"; // placeholder for current user ID
+        
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            for (int i = 1; i <= 7; i++)
-                ps.setInt(i, userId);
+            ps.setInt(1, userId);
+            ps.setInt(2, userId);
+            ps.setInt(3, userId);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String userInfo = "Username: " + rs.getString("username") +
-                        " Status: " + rs.getString("friendship_status");
+                String userInfo = "ID: " + rs.getString("user_id") 
+                                + " | Username: " + rs.getString("user_name") 
+                                + " | Status: " + rs.getString("friendship_status");
                 usersWithStatus.add(userInfo);
             }
 

@@ -12,7 +12,12 @@ public class Gift {
     private String status;        // maps to status ('Incomplete' or 'Completed')
     private int ownerUserId;      // maps to owner_user_id (foreign key)
 
-    // Constructors
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
     public Gift() {
         // default constructor
     }
@@ -23,6 +28,11 @@ public class Gift {
         this.status = status;
         this.ownerUserId = ownerUserId;
     }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    // Constructors
 
     // Getters and Setters
     public int getGiftId() {
