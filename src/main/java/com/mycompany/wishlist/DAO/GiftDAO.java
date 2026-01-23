@@ -14,7 +14,7 @@ public class GiftDAO {
 
     // Add new gift
     public boolean addGift(Gift gift) {
-        String sql = "INSERT INTO gift (gift_name, price, status, owner_user_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO gift (gift_name, price, status, owner_user_id, description) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -23,6 +23,7 @@ public class GiftDAO {
             ps.setBigDecimal(2, gift.getPrice());
             ps.setString(3, gift.getStatus());
             ps.setInt(4, gift.getOwnerUserId());
+            ps.setString(5, gift.getDescription());
 
             int rows = ps.executeUpdate();
             return rows > 0;
@@ -52,6 +53,7 @@ public class GiftDAO {
                 gift.setPrice(rs.getBigDecimal("price"));
                 gift.setStatus(rs.getString("status"));
                 gift.setOwnerUserId(rs.getInt("owner_user_id"));
+                gift.setDescription(rs.getString("description"));
                 gifts.add(gift);
             }
 
