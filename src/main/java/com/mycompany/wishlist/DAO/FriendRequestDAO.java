@@ -48,7 +48,7 @@ public class FriendRequestDAO {
     // 2- Get friend requests by user ID
     // Used IN FRIEND REQUESTS SERVICE
     public FriendRequest getRequestById(int requestId) {
-        String sql = "SELECT * FROM friend_request WHERE request_id = ?";
+        String sql = "SELECT * FROM friend_request WHERE req_id = ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -56,7 +56,7 @@ public class FriendRequestDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 FriendRequest request = new FriendRequest();
-                request.setReqId(rs.getInt("request_id"));
+                request.setReqId(rs.getInt("req_id"));
                 request.setSenderId(rs.getInt("sender_id"));
                 request.setReceiverId(rs.getInt("receiver_id"));
                 request.setStatus(rs.getString("status"));
@@ -72,7 +72,7 @@ public class FriendRequestDAO {
     // 3- Accept Friend Request
     // Used IN FRIEND REQUESTS SERVICE
     public boolean acceptedFriendRequest(int requestId) {
-        String sql = "UPDATE friend_request SET status = 'ACCEPTED' WHERE request_id = ? AND status = 'PENDING'";
+        String sql = "UPDATE friend_request SET status = 'ACCEPTED' WHERE req_id = ? AND status = 'PENDING'";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -91,7 +91,7 @@ public class FriendRequestDAO {
     // 4- Decline Friend Request
     // Used IN FRIEND REQUESTS SERVICE
     public boolean declineFriendRequest(int requestId) {
-        String sql = "UPDATE friend_request SET status = 'DECLINED' WHERE request_id = ? AND status = 'PENDING'";
+        String sql = "UPDATE friend_request SET status = 'DECLINED' WHERE req_id = ? AND status = 'PENDING'";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -175,7 +175,7 @@ public class FriendRequestDAO {
                 
                 FriendRequest request = new FriendRequest();
 
-                request.setReqId(rs.getInt("request_id"));
+                request.setReqId(rs.getInt("req_id"));
                 request.setSenderId(rs.getInt("sender_id"));
                 request.setReceiverId(rs.getInt("receiver_id"));
                 request.setStatus(rs.getString("status"));
