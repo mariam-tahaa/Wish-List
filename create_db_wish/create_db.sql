@@ -1,5 +1,8 @@
 ALTER USER Iwish QUOTA UNLIMITED ON USERS;
 
+SELECT * FROM app_user;
+
+
 
 SELECT tablespace_name, bytes, max_bytes
 FROM user_ts_quotas;
