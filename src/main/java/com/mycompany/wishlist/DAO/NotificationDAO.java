@@ -40,7 +40,7 @@ public class NotificationDAO {
     }
 
     // Get notifications by user ID
-    public List<Notification> getNotificationsByUserId(int userId) {
+    public List<Notification> getAllNotificationsByUserId(int userId) {
         List<Notification> notifications = new ArrayList<>();
         String sql = "SELECT * FROM notification WHERE user_id = ? ORDER BY not_time DESC";
 

@@ -50,6 +50,12 @@ public class App extends Application {
             System.out.println("Failed to connect to the database.");
             e.printStackTrace();
         }
+     
+        launch(args);
+}
+
+
+
 
 
 /* 
@@ -83,4 +89,3 @@ ContributionService contributionService = new ContributionService();
         
     
     }
-}

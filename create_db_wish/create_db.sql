@@ -115,6 +115,7 @@ CREATE TABLE notification (
     status      VARCHAR2(20) DEFAULT 'UNREAD' CHECK (status IN ('UNREAD', 'READ')),
     CONSTRAINT fk_not_user FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 )TABLESPACE USERS;
+
 CREATE OR REPLACE TRIGGER notification_before_insert
 BEFORE INSERT ON notification 
 FOR EACH ROW
