@@ -23,6 +23,8 @@ public class WishlistController {
 
     private GiftService giftService = new GiftService();
     private User currentUser;
+    
+    @FXML private Label username;
 
     @FXML
     private VBox wishlistPane;
@@ -32,6 +34,7 @@ public class WishlistController {
     private void initialize() {
         // Get current user from session
         currentUser = SessionManager.getCurrentUser();
+        username.setText(currentUser.getUserName());
 
         if (currentUser != null) {
             loadUserGifts();

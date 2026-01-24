@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import com.mycompany.wishlist.App;
 import com.mycompany.wishlist.DAO.UserDAO;
+import com.mycompany.wishlist.Helpers.SessionManager;
 import com.mycompany.wishlist.Models.Notification;
+import com.mycompany.wishlist.Models.User;
 import com.mycompany.wishlist.Services.NotificationService;
 import java.util.List;
 
@@ -19,16 +21,20 @@ import javafx.scene.shape.Line;
 public class NotificationController {
     @FXML
     private VBox NotificationPane;
+    @FXML private Label username;
     
+    private NotificationService service = new NotificationService();
     private UserDAO userDao = new UserDAO();
+    private User currentUser;
     
     @FXML
     public void initialize() {
+        currentUser = SessionManager.getCurrentUser();
+        username.setText(currentUser.getUserName());
         loadNotifications();
     }
 
     private void loadNotifications(){
-        NotificationService service = new NotificationService();
         List<Notification> notifications = service.getAllNotifications();
 
         NotificationPane.getChildren().clear();
@@ -123,7 +129,6 @@ public class NotificationController {
     }
     
     private void read(int notificationId){
-        NotificationService service = new NotificationService();
         service.markNotificationAsRead(notificationId);
         loadNotifications();
     }

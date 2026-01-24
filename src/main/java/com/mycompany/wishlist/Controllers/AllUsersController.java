@@ -21,6 +21,8 @@ public class AllUsersController {
     @FXML
     private VBox allPane;
 
+    @FXML private Label username;
+    
     private AllUsersService service = new AllUsersService();
     private FriendRequestsService.FriendRequestService requestService =
         new FriendRequestsService().new FriendRequestService();
@@ -28,6 +30,8 @@ public class AllUsersController {
     private User currentUser;
 
     public void initialize(){
+        currentUser = SessionManager.getCurrentUser();
+        username.setText(currentUser.getUserName());
         loadAllUsers();
         
     }
