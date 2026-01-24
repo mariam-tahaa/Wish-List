@@ -49,6 +49,7 @@ public class NotificationDAO {
                    + " FROM notification n "
                    + " JOIN gift g ON g.gift_id = n.gift_id "
                    + " WHERE n.user_id = ? "
+                   + " AND n.status = 'UNREAD' "
                    + " ORDER BY n.not_time DESC ";
 
         try (Connection conn = DBConnection.getConnection();

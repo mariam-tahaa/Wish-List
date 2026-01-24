@@ -49,10 +49,13 @@ public class ContributionService {
 
         // 4. Insert the contribution
         boolean success = contributionDAO.addContribution(contribution);
-        
+        ///////////TODO: call notification function with content (new contributor : user_name contributed in your Gift)
+
         // 5. If gift is now 100% funded, update its status to 'Completed'
         if (success && newTotal.compareTo(new BigDecimal("100")) == 0) {
             gift.setStatus("Completed");
+        //////////TODO: call notification: All users function (content is : gift_name completed)
+
             giftDAO.updateGift(gift);
         }
         
@@ -105,6 +108,7 @@ public class ContributionService {
                 String newStatus = newTotal.compareTo(new BigDecimal("100")) == 0 ? "Completed" : "Incomplete";
                 if (!newStatus.equalsIgnoreCase(gift.getStatus())) {
                     gift.setStatus(newStatus);
+                    // call notification: All users function (content is : gift_name completed)
                     giftDAO.updateGift(gift);
                 }
             }

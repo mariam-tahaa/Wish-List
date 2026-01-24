@@ -148,5 +148,41 @@ BEGIN
 END;    
  
 
+-------------------------- JUST FOR TEST -------------------------------
 
+-- select * from NOTIFICATION;
+
+-- select * from gift;
+
+-- select * FROM APP_USER;
+
+-- TRUNCATE TABLE app_user;
+
+-- INSERT INTO app_user (user_id, user_name, mail, pass) VALUES (5, 'Alice', 'alice@example.com', 'pass123');
+-- INSERT INTO app_user (user_id, user_name, mail, pass) VALUES (6, 'Bob', 'bob@example.com', 'pass123');
+-- INSERT INTO app_user (user_id, user_name, mail, pass) VALUES (7, 'Charlie', 'charlie@example.com', 'pass123');
+-- INSERT INTO app_user (user_id, user_name, mail, pass) VALUES (8, 'Diana', 'diana@example.com', 'pass123');
+
+
+-- INSERT INTO gift (gift_name, price, status, description, owner_user_id)
+-- VALUES ('Smart Watch', 199.99, 'Incomplete', 'Fitness smart watch', 1);
+
+-- INSERT INTO gift (gift_name, price, status, description, owner_user_id)
+-- VALUES ('Bluetooth Speaker', 89.99, 'Incomplete', 'Portable speaker', 2);
+
+-- INSERT INTO gift (gift_name, price, status, description, owner_user_id)
+-- VALUES ('Coffee Maker', 49.99, 'Incomplete', 'Automatic coffee machine', 3);
+
+
+-- -- Alice gets a notification that Bob contributes to her gift
+-- INSERT INTO notification (not_id, user_id, gift_id, content)
+-- VALUES (1, 1, 7, 'Bob contributes with you in Smart Watch');
+
+-- -- Bob gets a notification that his gift is completed
+-- INSERT INTO notification (not_id, user_id, gift_id, content)
+-- VALUES (4, 2, 8, 'Hello Farfora!!!!!!!!!!');
+
+-- -- Charlie contributes to Diana's gift
+-- INSERT INTO notification (not_id, user_id, gift_id, content)
+-- VALUES (3, 4, 9, 'Charlie contributes with you in Coffee Maker');
 

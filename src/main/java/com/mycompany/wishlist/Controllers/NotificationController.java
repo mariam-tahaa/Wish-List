@@ -125,7 +125,7 @@ public class NotificationController {
     private void read(int notificationId){
         NotificationService service = new NotificationService();
         service.markNotificationAsRead(notificationId);
-        initialize();
+        loadNotifications();
     }
 
 
