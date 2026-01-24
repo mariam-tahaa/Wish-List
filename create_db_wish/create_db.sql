@@ -46,6 +46,7 @@ CREATE TABLE gift (
     gift_name      VARCHAR2(255) NOT NULL,   
     price          NUMBER(10, 2) NOT NULL,       
     status         VARCHAR2(20) DEFAULT 'Incomplete' CHECK (status IN ('Incomplete', 'Completed')),
+    description    VARCHAR2(500),
     owner_user_id  NUMBER NOT NULL,
     CONSTRAINT fk_gift_owner FOREIGN KEY (owner_user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 )TABLESPACE USERS;
@@ -91,7 +92,6 @@ CREATE TABLE friendship (
     CONSTRAINT fk_friend_u2 FOREIGN KEY (friend_id) REFERENCES app_user(user_id) ON DELETE CASCADE
    -- CONSTRAINT chk_friend_order CHECK (user_id < friend_id)
 )TABLESPACE USERS;
-
 
 -- 5. notification
 CREATE TABLE notification (
