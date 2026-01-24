@@ -37,8 +37,8 @@ public class Notification {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(int ownerUserId) {
+        this.userId = ownerUserId;
     }
 
     public String getContent() {
