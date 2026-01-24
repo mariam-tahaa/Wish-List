@@ -110,11 +110,14 @@ CREATE TABLE friendship (
 CREATE TABLE notification (
     not_id      NUMBER PRIMARY KEY,
     user_id     NUMBER NOT NULL,
+    gift_id        NUMBER NOT NULL ,
     content     VARCHAR2(4000) NOT NULL,
     not_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status      VARCHAR2(20) DEFAULT 'UNREAD' CHECK (status IN ('UNREAD', 'READ')),
-    CONSTRAINT fk_not_user FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
+    CONSTRAINT fk_not_user FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_gift FOREIGN KEY (gift_id) REFERENCES gift(gift_id) ON DELETE CASCADE
 )TABLESPACE USERS;
+
 
 CREATE OR REPLACE TRIGGER notification_before_insert
 BEFORE INSERT ON notification 
