@@ -1,8 +1,13 @@
 ALTER USER Wishlist QUOTA UNLIMITED ON USERS;
 
+SELECT * FROM app_user;
+
+
 
 SELECT tablespace_name, bytes, max_bytes
 FROM user_ts_quotas;
+
+
 
 -- Set the schema context
 ALTER SESSION SET CURRENT_SCHEMA =  Wishlist;
@@ -50,6 +55,14 @@ CREATE TABLE gift (
     owner_user_id  NUMBER NOT NULL,
     CONSTRAINT fk_gift_owner FOREIGN KEY (owner_user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 )TABLESPACE USERS;
+
+ALTER TABLE gift 
+ADD description VARCHAR2(500);
+--INSERT INTO gift (gift_id, gift_name, price, status, owner_user_id, description)
+--VALUES (1, 'Sample Gift', 49.99, 'Incomplete', 1, 'This is a sample gift description.');
+SELECT * FROM gift;
+
+
 
 CREATE OR REPLACE TRIGGER gift_before_insert
 BEFORE INSERT ON gift
