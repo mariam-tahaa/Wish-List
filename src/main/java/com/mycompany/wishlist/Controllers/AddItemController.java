@@ -48,6 +48,8 @@ public class AddItemController {
     @FXML
     private Label generalError;
 
+    @FXML private Label username;
+    
     private GiftService giftService = new GiftService();
     private User currentUser;
 
@@ -55,6 +57,7 @@ public class AddItemController {
     private void initialize() {
         // Get current user from session
         currentUser = SessionManager.getCurrentUser();
+        username.setText(currentUser.getUserName());
 
         // Set up text change listeners to clear errors
         name.textProperty().addListener((observable, oldValue, newValue) -> {
