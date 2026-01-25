@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.mycompany.wishlist.App;
-import com.mycompany.wishlist.DAO.FriendshipDAO;
 import com.mycompany.wishlist.Helpers.SessionManager;
 import com.mycompany.wishlist.Models.User;
 import com.mycompany.wishlist.Services.AllUsersService;
@@ -41,8 +40,7 @@ public class AllUsersController {
 
         int currentUserId = SessionManager.getCurrentUser().getUserId();
 
-        FriendshipDAO dao = new FriendshipDAO();
-        List<String> users = dao.getAllUsersWithFriendshipStatus(currentUserId);
+        List<String> users = service.getAllUsersWithFriendshipStatus(currentUserId);
 
         for (String row : users) {
             String userIdStr = row.split("ID: ")[1].split(" \\| Username")[0]; // "5"

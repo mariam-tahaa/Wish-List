@@ -4,9 +4,11 @@ import java.io.IOException;
 
 import com.mycompany.wishlist.App;
 import com.mycompany.wishlist.Helpers.SessionManager;
+import com.mycompany.wishlist.Models.Contribution;
 import com.mycompany.wishlist.Models.Gift;
 import com.mycompany.wishlist.Models.Notification;
 import com.mycompany.wishlist.Models.User;
+import com.mycompany.wishlist.Services.ContributionService;
 import com.mycompany.wishlist.Services.FriendsService;
 import com.mycompany.wishlist.Services.GiftService;
 import com.mycompany.wishlist.Services.NotificationService;
@@ -25,6 +27,7 @@ public class HomeController {
     private FriendsService friendsService = new FriendsService();
     private GiftService giftService = new GiftService();
     private NotificationService notiService = new NotificationService();
+    private ContributionService contService = new ContributionService();
 
     @FXML
     private void initialize() {
@@ -32,15 +35,31 @@ public class HomeController {
         User currentUser = SessionManager.getCurrentUser();
         username.setText(currentUser.getUserName());
 
-        // Get friends count
-        List<Integer> friendIds = friendsService.getAllFriends();
-        int friendsCount = friendIds.size();
-        numFriends.setText(friendsCount + " Friends");
+        // Get friends count        
+        try {
+            List<Integer> friendIds = friendsService.getAllFriends();
+            int friendsCount = 0;
+            if (friendIds != null) {
+                friendsCount = friendIds.size();
+            }
+            numFriends.setText(friendsCount + " Friends");
+        } catch (Exception e) {
+            System.err.println("Error loading Friends: " + e.getMessage());
+            numFriends.setText("0 Friends");
+        }
 
         // Get gifts count
-        List<Gift> gifts = giftService.getUserGifts(currentUser.getUserId());
-        int giftsCount = gifts.size();
-        numWishlists.setText(giftsCount + " Wish Items");
+        try {
+            List<Gift> gifts = giftService.getUserGifts(currentUser.getUserId());
+            int giftsCount = 0;
+            if (gifts != null) {
+                giftsCount = gifts.size();
+            }
+            numWishlists.setText(giftsCount + " Wish Items");
+        } catch (Exception e) {
+            System.err.println("Error loading wish items: " + e.getMessage());
+            numNotifications.setText("0 Wish Items");
+        }
 
         // Get notifications count - WITH NULL CHECK
         try {
@@ -55,7 +74,18 @@ public class HomeController {
             numNotifications.setText("0 Notifications"); // Default to 0 on error
         }
 
-        numContributions.setText("0 Contributions");
+        // get contributions count
+        try {
+            List<Contribution> contributions = contService.getFullUserContributions(currentUser.getUserId());
+            int contCount = 0;
+            if(contributions != null) {
+                contCount = contributions.size();
+            }
+            numContributions.setText(contCount+" Contributions");
+        }catch (Exception e){
+            System.err.println("Error loading contributions: " + e.getMessage());
+            numContributions.setText("0 Contributions");
+        }
     }
 
     @FXML

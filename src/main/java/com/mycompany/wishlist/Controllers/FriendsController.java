@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import com.mycompany.wishlist.App;
-import com.mycompany.wishlist.DAO.UserDAO;
 import com.mycompany.wishlist.Helpers.SessionManager;
 import com.mycompany.wishlist.Models.User;
 import com.mycompany.wishlist.Services.FriendsService;
+import com.mycompany.wishlist.Services.UserService;
 
 
 import javafx.fxml.FXML;
@@ -26,8 +26,8 @@ public class FriendsController {
     @FXML private Label username;
     
     private FriendsService friendsService = new FriendsService();
-
-    private UserDAO userDao = new UserDAO();
+    
+    private UserService userService = new UserService();
     
     private User currentUser;
     
@@ -70,7 +70,7 @@ public class FriendsController {
         hbox.setSpacing(20); 
         hbox.setStyle("-fx-alignment: CENTER_LEFT;");
 
-        User friend = userDao.getUserById(friendId);
+        User friend = userService.getUserById(friendId);
         Label nameLabel = new Label(friend.getUserName()); 
         nameLabel.setStyle("-fx-text-fill: WHITE; -fx-font-size: 24px; -fx-font-family: 'Arial Rounded MT Bold';");
         nameLabel.setOnMouseClicked(event -> goToFriendPage(event, friendId));

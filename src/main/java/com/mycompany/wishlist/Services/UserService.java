@@ -90,4 +90,8 @@ private UserDAO userDAO = new UserDAO();
     private boolean isEmpty(String value) {
         return value == null || value.trim().isEmpty();
     }
+    
+    public User getUserById(int userId){
+        return userDAO.getUserById(userId);
+    }
 }

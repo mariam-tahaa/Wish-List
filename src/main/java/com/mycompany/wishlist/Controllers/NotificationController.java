@@ -3,7 +3,6 @@ package com.mycompany.wishlist.Controllers;
 import java.io.IOException;
 
 import com.mycompany.wishlist.App;
-import com.mycompany.wishlist.DAO.UserDAO;
 import com.mycompany.wishlist.Helpers.SessionManager;
 import com.mycompany.wishlist.Models.Notification;
 import com.mycompany.wishlist.Models.User;

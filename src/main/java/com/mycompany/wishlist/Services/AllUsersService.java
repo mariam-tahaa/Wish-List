@@ -4,6 +4,7 @@ import com.mycompany.wishlist.DAO.FriendshipDAO;
 import com.mycompany.wishlist.DAO.FriendRequestDAO;
 import com.mycompany.wishlist.Helpers.SessionManager;
 import com.mycompany.wishlist.Models.FriendRequest;
+import java.util.List;
 
 //////////////////////  ALL USERS  ////////////////////////////
 
@@ -18,10 +19,10 @@ public class AllUsersService {
     private FriendRequestDAO friendRequestDAO = new FriendRequestDAO();
 
     ///////////////// A. Get all users with friendship status ///////////////////
-    public void getAllUsersWithFriendshipStatus() {
+    public List<String> getAllUsersWithFriendshipStatus(int currentUserId) {
         int userId = SessionManager.getCurrentUser().getUserId();
         // Function number 4 in friendshipDAO
-        friendshipDAO.getAllUsersWithFriendshipStatus(userId);
+        return friendshipDAO.getAllUsersWithFriendshipStatus(userId);
     }
 
     ///////////////////// B. Send friend request ////////////////////////

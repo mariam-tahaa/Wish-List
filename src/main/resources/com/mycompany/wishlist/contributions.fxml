@@ -92,86 +92,21 @@
             <children>
                 <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
                     <children>
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="420.0" maxWidth="580.0" style="-fx-background: transparent; -fx-background-color: rgba(12, 12, 12, 0.4); -fx-background-radius: 30;" vbarPolicy="AS_NEEDED">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="420.0" maxWidth="650.0" style="-fx-background: transparent; -fx-background-color: rgba(12, 12, 12, 0.4); -fx-background-radius: 30;" vbarPolicy="AS_NEEDED">
                             <content>
                                 <VBox fx:id="contPane" spacing="25.0" style="-fx-background-color: transparent;">
                                     <padding><Insets bottom="30.0" left="30.0" right="30.0" top="30.0" /></padding>
                                     <children>
                                         <HBox spacing="10.0">
                                             <children>
-                                                <Label prefWidth="120.0" text="Friend" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="20.0" /></font></Label>
+                                                <Label prefWidth="150.0" text="Friend" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="20.0" /></font></Label>
                                                 <Label prefWidth="120.0" text="Item" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="20.0" /></font></Label>
                                                 <Label prefWidth="130.0" text="Percentage" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="20.0" /></font></Label>
                                                 <Label prefWidth="100.0" text="Amount" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="20.0" /></font></Label>
                                             </children>
                                         </HBox>
 
-                                        <HBox spacing="10.0">
-                                            <children>
-                                                <Label prefWidth="120.0" text="Name 1" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="120.0" text="Item 1" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="130.0" text="10%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="100.0" text="10$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            </children>
-                                        </HBox>
-                                        <HBox spacing="10.0">
-                                            <children>
-                                                <Label prefWidth="120.0" text="Name 2" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="120.0" text="Item 2" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="130.0" text="20%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="100.0" text="20$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            </children>
-                                        </HBox>
-                                        <HBox spacing="10.0">
-                                            <children>
-                                                <Label prefWidth="120.0" text="Name 3" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="120.0" text="Item 3" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="130.0" text="15%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                                <Label prefWidth="100.0" text="15$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            </children>
-                                        </HBox>
-                                        <HBox spacing="10.0"><children>
-                                            <Label prefWidth="120.0" text="Name 4" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="120.0" text="Item 4" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="130.0" text="30%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="100.0" text="30$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                        </children></HBox>
-                                        <HBox spacing="10.0"><children>
-                                            <Label prefWidth="120.0" text="Name 5" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="120.0" text="Item 5" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="130.0" text="5%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="100.0" text="5$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                        </children></HBox>
-                                        <HBox spacing="10.0"><children>
-                                            <Label prefWidth="120.0" text="Name 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="120.0" text="Item 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="130.0" text="50%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="100.0" text="50$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                        </children></HBox>
-                                        <HBox spacing="10.0"><children>
-                                            <Label prefWidth="120.0" text="Name 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="120.0" text="Item 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="130.0" text="50%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="100.0" text="50$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                        </children></HBox>
-                                        <HBox spacing="10.0"><children>
-                                            <Label prefWidth="120.0" text="Name 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="120.0" text="Item 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="130.0" text="50%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="100.0" text="50$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                        </children></HBox>
-                                        <HBox spacing="10.0"><children>
-                                            <Label prefWidth="120.0" text="Name 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="120.0" text="Item 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="130.0" text="50%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="100.0" text="50$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                        </children></HBox>
-                                        <HBox spacing="10.0"><children>
-                                            <Label prefWidth="120.0" text="Name 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="120.0" text="Item 6" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="130.0" text="50%" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                            <Label prefWidth="100.0" text="50$" textFill="WHITE"><font><Font name="Arial Rounded MT Bold" size="18.0" /></font></Label>
-                                        </children></HBox>
+                                        
                                     </children>
                                 </VBox>
                             </content>

@@ -102,7 +102,7 @@ public class ContributionsController {
         headerRow.setAlignment(Pos.CENTER_LEFT);
 
         Label friendLabel = new Label("Friend");
-        friendLabel.setPrefWidth(120.0);
+        friendLabel.setPrefWidth(150.0);
         friendLabel.setTextFill(javafx.scene.paint.Color.WHITE);
         friendLabel.setFont(Font.font("Arial Rounded MT Bold", 20.0));
 
@@ -141,7 +141,7 @@ public class ContributionsController {
         }
 
         Label friendLabel = new Label(friendName);
-        friendLabel.setPrefWidth(120.0);
+        friendLabel.setPrefWidth(150.0);
         friendLabel.setTextFill(javafx.scene.paint.Color.WHITE);
         friendLabel.setFont(Font.font("Arial Rounded MT Bold", 18.0));
 
