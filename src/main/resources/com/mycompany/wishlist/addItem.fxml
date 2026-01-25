@@ -173,9 +173,11 @@
                     </children>
                 </VBox>
 
-                <HBox alignment="TOP_RIGHT" pickOnBounds="false">
+                <HBox alignment="TOP_RIGHT" pickOnBounds="false" spacing="15">
                     <padding><Insets right="30.0" top="30.0" /></padding>
                     <children>
+                        <Label fx:id="username" textFill="#f5b995" style="-fx-font-size: 18px; -fx-font-weight: bold;">
+                        </Label>
                         <Label fx:id="logoutBtn" onMouseClicked="#logout" style="-fx-cursor: hand;" text="Logout ➡" textFill="WHITE">
                             <font><Font name="Arial Rounded MT Bold" size="14.0" /></font>
                         </Label>

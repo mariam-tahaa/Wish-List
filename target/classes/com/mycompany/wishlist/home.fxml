@@ -164,14 +164,16 @@
             </VBox>
 
             <!-- Logout -->
-            <HBox alignment="TOP_RIGHT">
+            <HBox alignment="TOP_RIGHT" spacing="15">
                 <padding>
                     <Insets top="30" right="30"/>
                 </padding>
+                <Label fx:id="username" textFill="#f5b995" style="-fx-font-size: 18px; -fx-font-weight: bold;">
+                </Label>
                 <Label text="Logout ➡" textFill="WHITE"
                        onMouseClicked="#logout"
                        style="-fx-cursor: hand;">
-                    <font><Font size="14"/></font>
+                    <font><Font name="Arial Rounded MT Bold" size="14"/></font>
                 </Label>
             </HBox>
 

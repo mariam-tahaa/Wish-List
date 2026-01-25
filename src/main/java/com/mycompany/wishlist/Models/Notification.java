@@ -5,11 +5,13 @@ import java.sql.Timestamp;
 
 public class Notification {
 
-    private int notId;          // maps to not_id
-    private int userId;         // maps to user_id (foreign key)
-    private String content;     // maps to content
-    private Timestamp notTime;  // maps to not_time
-    private String status;      // maps to status ('UNREAD' or 'READ')
+    private int notId;
+    private int userId;
+    private int giftId;
+    private String giftName;
+    private String content;
+    private Timestamp notTime;
+    private String status;
 
     // Constructors
     public Notification() {
@@ -35,8 +37,8 @@ public class Notification {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(int ownerUserId) {
+        this.userId = ownerUserId;
     }
 
     public String getContent() {
@@ -62,4 +64,22 @@ public class Notification {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getGiftId() {
+        return giftId;
+    }
+
+    public void setGiftId(int giftId) {
+        this.giftId = giftId;
+    }
+
+    public String getGiftName() {
+        return giftName;
+    }
+
+    public void setGiftName(String giftName) {
+        this.giftName = giftName;
+    }
+
+    
 }

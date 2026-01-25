@@ -23,12 +23,18 @@ public class FriendsController {
     @FXML
     private VBox friendsPane;
 
+    @FXML private Label username;
+    
     private FreindsService friendsService = new FreindsService();
 
     private UserDAO userDao = new UserDAO();
-
+    
+    private User currentUser;
+    
     @FXML
     private void initialize() {
+        currentUser = SessionManager.getCurrentUser();
+        username.setText(currentUser.getUserName());
         loadFriends();
     }
 

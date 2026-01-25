@@ -1,18 +1,23 @@
-ALTER USER Iwish QUOTA UNLIMITED ON USERS;
+ALTER USER Wishlist QUOTA UNLIMITED ON USERS;
+
+SELECT * FROM app_user;
+
 
 
 SELECT tablespace_name, bytes, max_bytes
 FROM user_ts_quotas;
 
+
+
 -- Set the schema context
-ALTER SESSION SET CURRENT_SCHEMA =  Iwish;
-grant CREATE TABLE to Iwish;
-grant CREATE SEQUENCE to Iwish; 
-grant CREATE VIEW to Iwish;
-grant CREATE TRIGGER to Iwish;  
-grant CREATE PROCEDURE to Iwish;
-grant CREATE ANY CONTEXT to Iwish; 
---grant quota unlimited on USERS to Iwish;
+ALTER SESSION SET CURRENT_SCHEMA =  Wishlist;
+grant CREATE TABLE to Wishlist;
+grant CREATE SEQUENCE to Wishlist; 
+grant CREATE VIEW to Wishlist;
+grant CREATE TRIGGER to Wishlist;  
+grant CREATE PROCEDURE to Wishlist;
+grant CREATE ANY CONTEXT to Wishlist; 
+--grant quota unlimited on USERS to Wishlist;
 -- Create sequences for primary keys
 CREATE SEQUENCE app_user_seq;
 CREATE SEQUENCE gift_seq;
@@ -46,9 +51,18 @@ CREATE TABLE gift (
     gift_name      VARCHAR2(255) NOT NULL,   
     price          NUMBER(10, 2) NOT NULL,       
     status         VARCHAR2(20) DEFAULT 'Incomplete' CHECK (status IN ('Incomplete', 'Completed')),
+    description    VARCHAR2(500),
     owner_user_id  NUMBER NOT NULL,
     CONSTRAINT fk_gift_owner FOREIGN KEY (owner_user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 )TABLESPACE USERS;
+
+ALTER TABLE gift 
+ADD description VARCHAR2(500);
+--INSERT INTO gift (gift_id, gift_name, price, status, owner_user_id, description)
+--VALUES (1, 'Sample Gift', 49.99, 'Incomplete', 1, 'This is a sample gift description.');
+SELECT * FROM gift;
+
+
 
 CREATE OR REPLACE TRIGGER gift_before_insert
 BEFORE INSERT ON gift
@@ -92,16 +106,19 @@ CREATE TABLE friendship (
    -- CONSTRAINT chk_friend_order CHECK (user_id < friend_id)
 )TABLESPACE USERS;
 
-
 -- 5. notification
 CREATE TABLE notification (
     not_id      NUMBER PRIMARY KEY,
     user_id     NUMBER NOT NULL,
+    gift_id        NUMBER NOT NULL ,
     content     VARCHAR2(4000) NOT NULL,
     not_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status      VARCHAR2(20) DEFAULT 'UNREAD' CHECK (status IN ('UNREAD', 'READ')),
-    CONSTRAINT fk_not_user FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
+    CONSTRAINT fk_not_user FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_gift FOREIGN KEY (gift_id) REFERENCES gift(gift_id) ON DELETE CASCADE
 )TABLESPACE USERS;
+
+
 CREATE OR REPLACE TRIGGER notification_before_insert
 BEFORE INSERT ON notification 
 FOR EACH ROW
@@ -131,5 +148,41 @@ BEGIN
 END;    
  
 
+-------------------------- JUST FOR TEST -------------------------------
 
+-- select * from NOTIFICATION;
+
+-- select * from gift;
+
+-- select * FROM APP_USER;
+
+-- TRUNCATE TABLE app_user;
+
+-- INSERT INTO app_user (user_id, user_name, mail, pass) VALUES (5, 'Alice', 'alice@example.com', 'pass123');
+-- INSERT INTO app_user (user_id, user_name, mail, pass) VALUES (6, 'Bob', 'bob@example.com', 'pass123');
+-- INSERT INTO app_user (user_id, user_name, mail, pass) VALUES (7, 'Charlie', 'charlie@example.com', 'pass123');
+-- INSERT INTO app_user (user_id, user_name, mail, pass) VALUES (8, 'Diana', 'diana@example.com', 'pass123');
+
+
+-- INSERT INTO gift (gift_name, price, status, description, owner_user_id)
+-- VALUES ('Smart Watch', 199.99, 'Incomplete', 'Fitness smart watch', 1);
+
+-- INSERT INTO gift (gift_name, price, status, description, owner_user_id)
+-- VALUES ('Bluetooth Speaker', 89.99, 'Incomplete', 'Portable speaker', 2);
+
+-- INSERT INTO gift (gift_name, price, status, description, owner_user_id)
+-- VALUES ('Coffee Maker', 49.99, 'Incomplete', 'Automatic coffee machine', 3);
+
+
+-- -- Alice gets a notification that Bob contributes to her gift
+-- INSERT INTO notification (not_id, user_id, gift_id, content)
+-- VALUES (1, 1, 7, 'Bob contributes with you in Smart Watch');
+
+-- -- Bob gets a notification that his gift is completed
+-- INSERT INTO notification (not_id, user_id, gift_id, content)
+-- VALUES (4, 2, 8, 'Hello Farfora!!!!!!!!!!');
+
+-- -- Charlie contributes to Diana's gift
+-- INSERT INTO notification (not_id, user_id, gift_id, content)
+-- VALUES (3, 4, 9, 'Charlie contributes with you in Coffee Maker');
 

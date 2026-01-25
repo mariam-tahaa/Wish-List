@@ -1,5 +1,6 @@
 com\mycompany\wishlist\Controllers\HomeController.class
 com\mycompany\wishlist\Controllers\SecondaryController.class
+com\mycompany\wishlist\Services\NotificationService.class
 com\mycompany\wishlist\Models\User.class
 com\mycompany\wishlist\Controllers\RegisterController.class
 com\mycompany\wishlist\Models\Notification.class
@@ -9,6 +10,7 @@ com\mycompany\wishlist\Models\Friendship.class
 com\mycompany\wishlist\Models\Gift.class
 com\mycompany\wishlist\DAO\FriendRequestDAO.class
 com\mycompany\wishlist\Controllers\FriendsController.class
+com\mycompany\wishlist\Services\ContributionService.class
 com\mycompany\wishlist\Services\FriendRequestsService$FriendRequestService.class
 com\mycompany\wishlist\Controllers\IndexController.class
 com\mycompany\wishlist\DAO\ContributionDAO.class
@@ -17,6 +19,7 @@ com\mycompany\wishlist\Services\AllUsersService.class
 com\mycompany\wishlist\Services\FriendRequestsService.class
 com\mycompany\wishlist\Controllers\PrimaryController.class
 com\mycompany\wishlist\Controllers\AddItemController.class
+com\mycompany\wishlist\Services\GiftService.class
 com\mycompany\wishlist\DAO\UserDAO.class
 module-info.class
 com\mycompany\wishlist\Controllers\WishlistController.class

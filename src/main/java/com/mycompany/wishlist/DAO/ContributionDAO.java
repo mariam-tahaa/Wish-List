@@ -40,7 +40,75 @@ public class ContributionDAO {
         }
         return false; 
     }
+    //
+    public Contribution getContributionById(int contributionId) {
+        String sql = "SELECT * FROM contribution WHERE contribution_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
+            ps.setInt(1, contributionId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Contribution contribution = new Contribution();
+                contribution.setContributionId(rs.getInt("contribution_id"));
+                contribution.setContributorId(rs.getInt("contributor_id"));
+                contribution.setGiftId(rs.getInt("gift_id"));
+                contribution.setPercentage(rs.getBigDecimal("percentage"));
+                return contribution;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Get all contributions by Contributor ID
+    // Used to find all gifts a user has contributed to
+    // Used in ContributionService
+    // to notify gift owners about contributions
+    // when a user contributes to a gift
+    // or updates their contribution
+    // or deletes their contribution
+    // Returns list of contributions made by the specified contributor
+    // Each contribution includes gift ID and percentage contributed
+    public List<Contribution> getContributionsByContributorId(int contributorId) {
+    List<Contribution> list = new ArrayList<>();
+    String sql = "SELECT * FROM contribution WHERE contributor_id = ?";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, contributorId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Contribution c = new Contribution();
+            c.setContributionId(rs.getInt("contribution_id"));
+            c.setContributorId(rs.getInt("contributor_id"));
+            c.setGiftId(rs.getInt("gift_id"));
+            c.setPercentage(rs.getBigDecimal("percentage"));
+            list.add(c);
+        }
+    } catch (SQLException e) { e.printStackTrace(); }
+    return list;
+}
+
+
+     // Delete contribution by ID
+    public boolean deleteContribution(int contributionId) {
+        String sql = "DELETE FROM contribution WHERE contribution_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, contributionId);
+            int rows = ps.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Get all contributions for a specific gift
     public List<Contribution> getContributionsByGiftId(int giftId) {
         List<Contribution> contributuins = new ArrayList<>();
         String sql = "SELECT * FROM contribution WHERE gift_id = ?";
@@ -83,6 +151,5 @@ public class ContributionDAO {
         }
         return false; 
     }
-
 
 }

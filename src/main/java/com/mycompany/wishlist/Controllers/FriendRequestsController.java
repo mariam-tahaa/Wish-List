@@ -20,12 +20,17 @@ public class FriendRequestsController {
     @FXML
     private VBox requestsPane;
 
+    @FXML private Label username;
+    
     private FriendRequestsService.FriendRequestService service =
         new FriendRequestsService().new FriendRequestService();
 
     private UserDAO userDao = new UserDAO();
-
+    private User currentUser;
+    
     public void initialize(){
+        currentUser = SessionManager.getCurrentUser();
+        username.setText(currentUser.getUserName());
         loadFriendRequests();
     }
 

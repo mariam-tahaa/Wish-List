@@ -20,14 +20,15 @@ public class NotificationDAO {
 
     // Insert a new notification
     public boolean addNotification(Notification notification) {
-        String sql = "INSERT INTO notification (user_id, content, status) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO notification (user_id, gift_id, content, status) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, notification.getUserId());
-            ps.setString(2, notification.getContent());
-            ps.setString(3, notification.getStatus());
+            ps.setInt(2, notification.getGiftId());
+            ps.setString(3, notification.getContent());
+            ps.setString(4, notification.getStatus());
 
             int rows = ps.executeUpdate();
             return rows > 0;
@@ -40,9 +41,16 @@ public class NotificationDAO {
     }
 
     // Get notifications by user ID
-    public List<Notification> getNotificationsByUserId(int userId) {
+    public List<Notification> getAllNotificationsByUserId(int userId) {
+
         List<Notification> notifications = new ArrayList<>();
-        String sql = "SELECT * FROM notification WHERE user_id = ? ORDER BY not_time DESC";
+
+        String sql = " SELECT n.not_id, n.content, n.status, n.not_time, n.user_id, n.gift_id, g.gift_name "
+                   + " FROM notification n "
+                   + " JOIN gift g ON g.gift_id = n.gift_id "
+                   + " WHERE n.user_id = ? "
+                   + " AND n.status = 'UNREAD' "
+                   + " ORDER BY n.not_time DESC ";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -51,19 +59,21 @@ public class NotificationDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Notification notification = new Notification();
-                notification.setNotId(rs.getInt("not_id"));
-                notification.setUserId(rs.getInt("user_id"));
-                notification.setContent(rs.getString("content"));
-                notification.setNotTime(rs.getTimestamp("not_time"));
-                notification.setStatus(rs.getString("status"));
-                notifications.add(notification);
+                Notification n = new Notification();
+                n.setNotId(rs.getInt("not_id"));
+                n.setGiftId(rs.getInt("gift_id"));
+                n.setGiftName(rs.getString("gift_name"));
+                n.setContent(rs.getString("content"));
+                n.setNotTime(rs.getTimestamp("not_time"));
+                n.setStatus(rs.getString("status"));
+
+                notifications.add(n);
             }
-            rs.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return notifications;
     }
 

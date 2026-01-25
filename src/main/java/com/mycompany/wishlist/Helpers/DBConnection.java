@@ -8,9 +8,9 @@ import java.sql.SQLException;
  * Helper class to manage the connection to the Oracle Database.
  * This class should be placed in the com.mycompany.wishlist.Helpers package.
  */
-public class DBConnection {
-
-    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/XE";
+public class DBConnection { 
+    
+    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/XE"; 
     private static final String DB_USER = "Iwish"; 
     private static final String DB_PASSWORD = "Iwish"; 
 
