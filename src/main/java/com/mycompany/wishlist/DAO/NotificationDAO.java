@@ -21,14 +21,14 @@ public class NotificationDAO {
     // Insert a new notification
     public boolean addNotification(Notification notification) {
         String sql = "INSERT INTO notification (user_id, gift_id, content, status) VALUES (?, ?, ?, ?)";
-
+        System.out.println("SQL statement: " + sql);
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, notification.getUserId());
             ps.setInt(2, notification.getGiftId());
             ps.setString(3, notification.getContent());
-            ps.setString(4, notification.getStatus());
+            ps.setString(4, "UNREAD");
 
             int rows = ps.executeUpdate();
             return rows > 0;
@@ -58,6 +58,7 @@ public class NotificationDAO {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
 
+            System.out.println("DAO" + notifications);
             while (rs.next()) {
                 Notification n = new Notification();
                 n.setNotId(rs.getInt("not_id"));

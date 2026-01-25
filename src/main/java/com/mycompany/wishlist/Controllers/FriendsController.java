@@ -7,7 +7,7 @@ import com.mycompany.wishlist.App;
 import com.mycompany.wishlist.DAO.UserDAO;
 import com.mycompany.wishlist.Helpers.SessionManager;
 import com.mycompany.wishlist.Models.User;
-import com.mycompany.wishlist.Services.FreindsService;
+import com.mycompany.wishlist.Services.FriendsService;
 
 
 import javafx.fxml.FXML;
@@ -25,7 +25,7 @@ public class FriendsController {
 
     @FXML private Label username;
     
-    private FreindsService friendsService = new FreindsService();
+    private FriendsService friendsService = new FriendsService();
 
     private UserDAO userDao = new UserDAO();
     
@@ -137,6 +137,7 @@ public class FriendsController {
 
     @FXML
     private void goToFriendPage(MouseEvent event, int friendId) {
+        SessionManager.setFriendId(friendId);
         System.out.println("Go to Friend Page: " + friendId);
         try {
             App.setRoot("friendPage");

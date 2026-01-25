@@ -10,6 +10,7 @@ import com.mycompany.wishlist.Models.FriendRequest;
 import com.mycompany.wishlist.Models.User;
 import com.mycompany.wishlist.Services.FriendRequestsService;
 
+import com.mycompany.wishlist.Services.FriendsService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +26,7 @@ public class FriendRequestsController {
     private FriendRequestsService.FriendRequestService service =
         new FriendRequestsService().new FriendRequestService();
 
-    private UserDAO userDao = new UserDAO();
+    private FriendsService friendsService = new FriendsService();
     private User currentUser;
     
     public void initialize(){
@@ -59,7 +60,7 @@ public class FriendRequestsController {
     }
 
     private VBox createRequestCard(FriendRequest request) {
-        User reqUser = userDao.getUserById(request.getSenderId());
+        User reqUser = friendsService.getUserById(request.getSenderId());
         Label name = new Label(reqUser.getUserName());
         name.setStyle("-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;");
 

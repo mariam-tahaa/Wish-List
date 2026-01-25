@@ -24,7 +24,6 @@ public class NotificationController {
     @FXML private Label username;
     
     private NotificationService service = new NotificationService();
-    private UserDAO userDao = new UserDAO();
     private User currentUser;
     
     @FXML

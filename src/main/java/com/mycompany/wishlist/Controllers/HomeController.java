@@ -7,7 +7,7 @@ import com.mycompany.wishlist.Helpers.SessionManager;
 import com.mycompany.wishlist.Models.Gift;
 import com.mycompany.wishlist.Models.Notification;
 import com.mycompany.wishlist.Models.User;
-import com.mycompany.wishlist.Services.FreindsService;
+import com.mycompany.wishlist.Services.FriendsService;
 import com.mycompany.wishlist.Services.GiftService;
 import com.mycompany.wishlist.Services.NotificationService;
 import java.util.List;
@@ -22,7 +22,7 @@ public class HomeController {
     @FXML private Label numNotifications;
     @FXML private Label numContributions;
     @FXML private Label username;
-    private FreindsService friendsService = new FreindsService();
+    private FriendsService friendsService = new FriendsService();
     private GiftService giftService = new GiftService();
     private NotificationService notiService = new NotificationService();
 
@@ -31,16 +31,30 @@ public class HomeController {
         // Example dynamic values
         User currentUser = SessionManager.getCurrentUser();
         username.setText(currentUser.getUserName());
+
+        // Get friends count
         List<Integer> friendIds = friendsService.getAllFriends();
         int friendsCount = friendIds.size();
-        numFriends.setText(friendsCount+" Friends");
+        numFriends.setText(friendsCount + " Friends");
+
+        // Get gifts count
         List<Gift> gifts = giftService.getUserGifts(currentUser.getUserId());
         int giftsCount = gifts.size();
-        numWishlists.setText(giftsCount+" Wish Items");
-        List<Notification> notifications = notiService.getAllNotifications();
-        int notiCount = notifications.size();
-        numNotifications.setText("2 Notifications");
-        
+        numWishlists.setText(giftsCount + " Wish Items");
+
+        // Get notifications count - WITH NULL CHECK
+        try {
+            List<Notification> notifications = notiService.getAllNotifications();
+            int notiCount = 0;
+            if (notifications != null) {
+                notiCount = notifications.size();
+            }
+            numNotifications.setText(notiCount + " Notifications");
+        } catch (Exception e) {
+            System.err.println("Error loading notifications: " + e.getMessage());
+            numNotifications.setText("0 Notifications"); // Default to 0 on error
+        }
+
         numContributions.setText("0 Contributions");
     }
 

@@ -17,7 +17,7 @@ public class ContributionService {
 
     private ContributionDAO contributionDAO = new ContributionDAO();
     private GiftDAO giftDAO = new GiftDAO();
-    private UserDAO userDAO = new UserDAO();
+    private FriendsService friendsService = new FriendsService();
     private NotificationDAO notificationDAO = new NotificationDAO();
 
     /**
@@ -65,7 +65,7 @@ public class ContributionService {
             String currentUserName = SessionManager.getCurrentUser().getUserName();
             Notification ownerNotification = new Notification();
             ownerNotification.setUserId(gift.getOwnerUserId());
-            ownerNotification.setStatus("User " + currentUserName + " contributed to your gift: " + gift.getGiftName());
+            ownerNotification.setContent("User " + currentUserName + " contributed to your gift: " + gift.getGiftName());
             ownerNotification.setGiftId(gift.getGiftId());
             notificationDAO.addNotification(ownerNotification);
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ContributionService {
             for (Contribution c : allContributions) {
                 Notification contribNotification = new Notification();
                 contribNotification.setUserId(c.getContributorId());
-                contribNotification.setStatus("Gift '" + gift.getGiftName() + "' is now fully funded!");
+                contribNotification.setContent("Gift '" + gift.getGiftName() + "' is now fully funded!");
                 contribNotification.setGiftId(gift.getGiftId());
                 notificationDAO.addNotification(contribNotification);
             }
@@ -100,7 +100,7 @@ public class ContributionService {
             Gift gift = giftDAO.getGiftById(c.getGiftId());
             if (gift != null) {
                 c.setGift(gift);
-                User friend = userDAO.getUserById(gift.getOwnerUserId());
+                User friend = friendsService.getUserById(gift.getOwnerUserId());
                 c.setFriend(friend);
             }
         }
