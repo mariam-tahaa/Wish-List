@@ -19,7 +19,7 @@ import java.util.List;
 public class NotificationDAO {
 
     // Insert a new notification
-    public static boolean addNotification(Notification notification) {
+    public boolean addNotification(Notification notification) {
         String sql = "INSERT INTO notification (user_id, gift_id, content, status) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();

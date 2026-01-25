@@ -4,6 +4,7 @@
  */
 package com.mycompany.wishlist.Models;
 
+
 /**
  *
  * @author HELLo
@@ -18,7 +19,9 @@ public class Contribution {
     private int contributorId;      // maps to contributor_id (FK) to-User 
     private int giftId;             // maps to gift_id (FK)
     private BigDecimal percentage;  // maps to percentage (0 < x <= 100)
-
+    private Gift gift;               // Associated Gift object
+    private User friend;
+    
     // Constructors
     public Contribution() {}
 
@@ -27,6 +30,20 @@ public class Contribution {
         this.giftId = giftId;
         this.percentage = percentage;
     }
+    // Associated Gift and Friend getters and setters
+    public Gift getGift() { return gift; }
+    public void setGift(Gift gift) { this.gift = gift; }
+    // Associated Friend getters and setters
+    public User getFriend() { return friend; }
+    public void setFriend(User friend) { this.friend = friend; }
+    // Calculate the monetary amount based on percentage and gift price
+    public BigDecimal getCalculatedAmount() {
+        if (gift != null && percentage != null) {
+            return gift.getPrice().multiply(percentage).divide(new BigDecimal("100"));
+        }
+        return BigDecimal.ZERO;
+    }
+
 
     // Getters and Setters
     public int getContributionId() {
