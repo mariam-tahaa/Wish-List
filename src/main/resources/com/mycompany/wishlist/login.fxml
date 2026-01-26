@@ -83,7 +83,7 @@
                 <VBox alignment="CENTER">
                     <padding><Insets top="15.0"/></padding>
                     <children>
-                        <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="140.0"
+                        <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="140.0" defaultButton="true"
                                 style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;"
                                 text="Login">
                             <font><Font name="Arial Rounded MT Bold" size="20.0"/></font>

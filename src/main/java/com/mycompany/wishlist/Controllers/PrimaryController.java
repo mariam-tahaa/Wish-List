@@ -9,7 +9,12 @@ import javafx.fxml.FXML;
 public class PrimaryController {
 
     @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+    private void startServer() {
+        System.out.println("Server started");
     }
+
+    @FXML
+    private void stopServer() {
+        System.out.println("Server stopped");
+}
 }

@@ -123,7 +123,7 @@
                         <HBox alignment="CENTER">
                             <padding><Insets top="10.0" /></padding>
                             <children>
-                                <Button fx:id="rgstBtn" mnemonicParsing="false" onAction="#register" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Register">
+                                <Button fx:id="rgstBtn" mnemonicParsing="false" onAction="#register" prefHeight="45.0" prefWidth="130.0" defaultButton="true" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Register">
                                     <font><Font name="Arial Rounded MT Bold" size="18.0" /></font>
                                 </Button>
                             </children>

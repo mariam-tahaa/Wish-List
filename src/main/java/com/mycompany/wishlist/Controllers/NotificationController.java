@@ -50,15 +50,41 @@ public class NotificationController {
     }
     
     private VBox createNotificationItem(Notification notification) {
-        //User sender = userDao.getUserById(notification.)
-        //Label name = new Label();
-        //name.setStyle("-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;");
+        String notificationText = notification.getContent();
 
-        Label message = new Label(notification.getContent());
-        message.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
-        message.setWrapText(true);
+        VBox textBox = new VBox(5); // will hold name + message (or just message)
 
-        VBox textBox = new VBox(5, message);
+        Label message;
+
+        if (notificationText.contains(" contributed ")) {
+
+            int index = notificationText.indexOf(" contributed ");
+
+            String name = notificationText.substring(0, index);
+            String content = notificationText.substring(index + 1);
+
+            Label nameLabel = new Label(name);
+            nameLabel.setStyle(
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 20px; " +
+                "-fx-font-weight: bold;"
+            );
+
+            message = new Label(content);
+            message.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+            message.setWrapText(true);
+
+            textBox.getChildren().addAll(nameLabel, message);
+
+        } else {
+
+            message = new Label(notificationText);
+            message.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+            message.setWrapText(true);
+
+            textBox.getChildren().add(message);
+        }
+
         HBox.setHgrow(textBox, javafx.scene.layout.Priority.ALWAYS);
 
         Label readBtn = new Label("✔");
