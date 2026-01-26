@@ -1,0 +1,217 @@
+package com.mycompany.wishlist.DAO;
+
+import com.mycompany.wishlist.Helpers.DBConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+////////////////////////////////////////////
+
+// 1- Send Friend Request
+// 2- Check if two users are already friends
+// 3- check if there pending friend request between two users
+// 4- Delete friendship by user IDs
+// 5- Get all users in the system with their friendship status with the given user
+// 6- Insert a new friendship
+// 7- Get all friends of a user
+
+////////////////////////////////////////////
+
+public class FriendshipDAO {
+
+    // 1- Add Friend
+    // When he presses add friend button on GUI, we insert a new record in
+    // friendrequest table with pending status as default
+    // Used IN ALL USERS SERVICE
+    public boolean sendfriendrequest(int sender_id, int receiver_id) {
+        int u1 = Math.min(sender_id, receiver_id);
+        int u2 = Math.max(sender_id, receiver_id);
+
+        String sql = "INSERT INTO friendship (user_id, friend_id) VALUES (?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, u1);
+            ps.setInt(2, u2);
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    } // handled by MyFriendRequestService
+      ///////////////////////////////////////////////////////////////////////////////////
+
+    // 2- Check if two users are already friends
+    // Used in AllUsersService before sending a new friend request
+    public boolean areUsersFriends(int userId, int friendId) {
+        int u1 = Math.min(userId, friendId);
+        int u2 = Math.max(userId, friendId);
+
+        String sql = "SELECT 1 FROM friendship WHERE user_id = ? AND friend_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, u1);
+            ps.setInt(2, u2);
+
+            return ps.executeQuery().next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 3- check if there pending friend request between two users
+    // Used in AllUsersService before sending a new friend request
+    public boolean isPendingRequestExists(int senderId, int receiverId) {
+        int u1 = Math.min(senderId, receiverId);
+        int u2 = Math.max(senderId, receiverId);
+
+        String sql = "SELECT 1 FROM friend_request WHERE sender_id = ? AND receiver_id = ? AND status = 'PENDING'";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, u1);
+            ps.setInt(2, u2);
+            return ps.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 4- Delete friendship by user IDs
+    // Used in AllUsersService
+    public boolean deleteFriendshipByUserIds(int userId, int friendId) {
+        String sql = "DELETE FROM friendship WHERE (user_id = ? AND friend_id = ?) OR (user_id = ? AND friend_id = ?)";
+         String deleteFriendRequestSql =
+        "DELETE FROM friend_request " +
+        "WHERE (sender_id = ? AND receiver_id = ?) " +
+        "   OR (sender_id = ? AND receiver_id = ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+                 PreparedStatement ps1 = conn.prepareStatement(sql);
+            PreparedStatement ps2 = conn.prepareStatement(deleteFriendRequestSql)) {
+
+            ps1.setInt(1, userId);
+            ps1.setInt(2, friendId);
+            ps1.setInt(3, friendId);
+            ps1.setInt(4, userId);
+            ps1.executeUpdate();
+
+            ps2.setInt(1, userId);
+            ps2.setInt(2, friendId);
+            ps2.setInt(3, friendId);
+            ps2.setInt(4, userId);
+            ps2.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 5- Get all users in the system with their friendship status with the given
+    // Used IN ALL USERS SERVICE
+    public List<String> getAllUsersWithFriendshipStatus(int userId) {
+        List<String> usersWithStatus = new ArrayList<>();
+
+        String sql = "SELECT u.user_id, u.user_name, " +
+             "CASE " +
+             "WHEN f.status = 'ACCEPTED' THEN 'FRIEND' " +
+             "WHEN f.status = 'PENDING' THEN 'PENDING' " +
+             "ELSE 'NOT_FRIEND' " +
+             "END AS friendship_status " +
+             "FROM app_user u " +
+             "LEFT JOIN friend_request f " +
+             "ON ( " +
+             "(u.user_id = f.receiver_id AND f.sender_id = ?) " +
+             "OR " +
+             "(u.user_id = f.sender_id AND f.receiver_id = ?) " +
+             ") " +
+             "WHERE u.user_id != ?"; // placeholder for current user ID
+        
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, userId);
+            ps.setInt(3, userId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String userInfo = "ID: " + rs.getString("user_id") 
+                                + " | Username: " + rs.getString("user_name") 
+                                + " | Status: " + rs.getString("friendship_status");
+                usersWithStatus.add(userInfo);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usersWithStatus;
+    }
+
+    // 6- Insert a new friendship
+    // Used IN FRIEND REQUESTS SERVICE
+    public boolean addFriendship(int senderId, int receiverId) {
+        int u1 = Math.min(senderId, receiverId);
+        int u2 = Math.max(senderId, receiverId);
+
+        // check already friends
+        if (areUsersFriends(u1, u2))
+            return false;
+
+        String sql = "INSERT INTO friendship (user_id, friend_id) VALUES (?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, u1);
+            ps.setInt(2, u2);
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 7- Get all friends of a user
+    // Used IN FREINDS SERVICE
+    public List<Integer> getAllFriends(int userId) {
+        List<Integer> friends = new ArrayList<>();
+        String sql = "SELECT CASE WHEN user_id = ? THEN friend_id ELSE user_id END AS friend_id " +
+                "FROM friendship WHERE user_id = ? OR friend_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, userId);
+            ps.setInt(3, userId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                friends.add(rs.getInt("friend_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return friends;
+    }
+
+}

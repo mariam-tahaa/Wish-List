@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.wishlist.Controllers.RegisterController">
+    <children>
+        <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true">
+            <image>
+                <Image url="@Background.jpeg" />
+            </image>
+        </ImageView>
+
+        <VBox alignment="CENTER" fillWidth="false">
+            <children>
+                <VBox prefWidth="400.0" spacing="15.0" style="-fx-background-color: rgba(0, 0, 0, 0.75); -fx-background-radius: 40;">
+                    <padding>
+                        <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                    </padding>
+
+                    <!-- General error/success message -->
+                    <Label fx:id="generalError" textFill="RED" visible="false"
+                           prefHeight="30.0" wrapText="true"
+                           style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-alignment: center;">
+                    </Label>
+
+                    <children>
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label text="Name*" textFill="WHITE">
+                                    <font><Font name="Arial Rounded MT Bold" size="18.0" /></font>
+                                </Label>
+                                <TextField fx:id="name" prefHeight="40.0" promptText="name" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 5;">
+                                    <font><Font name="Arial Rounded MT Bold" size="16.0" /></font>
+                                </TextField>
+                                <Label fx:id="nameError" textFill="RED" visible="false"
+                                       style="-fx-font-size: 12px; -fx-font-weight: bold;">
+                                </Label>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label text="Email*" textFill="WHITE">
+                                    <font><Font name="Arial Rounded MT Bold" size="18.0" /></font>
+                                </Label>
+                                <TextField fx:id="mail" prefHeight="40.0" promptText="email" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 5;">
+                                    <font><Font name="Arial Rounded MT Bold" size="16.0" /></font>
+                                </TextField>
+                                <Label fx:id="mailError" textFill="RED" visible="false"
+                                       style="-fx-font-size: 12px; -fx-font-weight: bold;">
+                                </Label>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label text="Password*" textFill="WHITE">
+                                    <font><Font name="Arial Rounded MT Bold" size="18.0" /></font>
+                                </Label>
+                                <StackPane fx:id="passContainer" alignment="CENTER_RIGHT">
+                                    <children>
+                                        <!-- Hidden password field -->
+                                        <PasswordField fx:id="pass" prefHeight="40.0" promptText="Password"
+                                                       style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 4;">
+                                            <font><Font name="Arial Rounded MT Bold" size="16.0" /></font>
+                                        </PasswordField>
+                                        <!-- Visible password field -->
+                                        <TextField fx:id="visiblePass" prefHeight="40.0" promptText="Password"
+                                                   style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 5;">
+                                            <font><Font name="Arial Rounded MT Bold" size="16.0" /></font>
+                                        </TextField>
+                                        <!-- Eye icon -->
+                                        <Label fx:id="eyeIcon" onMouseClicked="#changeVisibility" style="-fx-cursor: hand;" text="👁" textFill="WHITE">
+                                            <padding><Insets right="10.0" /></padding>
+                                        </Label>
+                                    </children>
+                                </StackPane>
+                                <Label fx:id="passError" textFill="RED" visible="false"
+                                       style="-fx-font-size: 12px; -fx-font-weight: bold;">
+                                </Label>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label text="Re-Password*" textFill="WHITE">
+                                    <font><Font name="Arial Rounded MT Bold" size="18.0" /></font>
+                                </Label>
+                                <StackPane fx:id="rePassContainer" alignment="CENTER_RIGHT">
+                                    <children>
+                                        <!-- Hidden re-password field -->
+                                        <PasswordField fx:id="rePass" prefHeight="40.0" promptText="Re-type"
+                                                       style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 5;">
+                                            <font><Font name="Arial Rounded MT Bold" size="16.0" /></font>
+                                        </PasswordField>
+                                        <!-- Visible re-password field -->
+                                        <TextField fx:id="visibleRePass" prefHeight="40.0" promptText="Re-type"
+                                                   style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 5;">
+                                            <font><Font name="Arial Rounded MT Bold" size="16.0" /></font>
+                                        </TextField>
+                                        <!-- Eye icon -->
+                                        <Label fx:id="eyeIcon2" onMouseClicked="#changeVisibility2" style="-fx-cursor: hand;" text="👁" textFill="WHITE">
+                                            <padding><Insets right="10.0" /></padding>
+                                        </Label>
+                                    </children>
+                                </StackPane>
+                                <Label fx:id="rePassError" textFill="RED" visible="false"
+                                       style="-fx-font-size: 12px; -fx-font-weight: bold;">
+                                </Label>
+                            </children>
+                        </VBox>
+
+                        <HBox alignment="CENTER">
+                            <padding><Insets top="10.0" /></padding>
+                            <children>
+                                <Button fx:id="rgstBtn" mnemonicParsing="false" onAction="#register" prefHeight="45.0" prefWidth="130.0" defaultButton="true" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Register">
+                                    <font><Font name="Arial Rounded MT Bold" size="18.0" /></font>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+
+        <!-- Back arrow -->
+        <Label fx:id="backArrow" onMouseClicked="#goBack" text="←" textFill="WHITE"
+               style="-fx-cursor: hand;" StackPane.alignment="TOP_LEFT">
+            <font><Font name="System Bold" size="36.0"/></font>
+            <StackPane.margin>
+                <Insets left="25.0" top="15.0"/>
+            </StackPane.margin>
+        </Label>
+    </children>
+</StackPane>
