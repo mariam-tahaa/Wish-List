@@ -11,9 +11,12 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 
@@ -86,15 +89,24 @@ public class NotificationController {
         }
 
         HBox.setHgrow(textBox, javafx.scene.layout.Priority.ALWAYS);
+        textBox.setMaxWidth(380);
 
         Label readBtn = new Label("✔");
         readBtn.setStyle("-fx-text-fill: white; -fx-font-size: 26px; -fx-cursor: hand;");
+
+        readBtn.setMinWidth(40);
+        readBtn.setPrefWidth(40);
+        readBtn.setAlignment(Pos.CENTER);
 
         readBtn.setOnMouseClicked(e -> {
             read(notification.getNotId());
         });
 
-        HBox row = new HBox(10, textBox, readBtn);
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        HBox row = new HBox(10, textBox, spacer, readBtn);
+        row.setAlignment(Pos.CENTER_LEFT);
         row.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
         Line divider = new Line();
