@@ -83,4 +83,12 @@ public class GiftService {
             return "Failed to delete gift. Please try again.";
         }
     }
+    
+    public boolean updateGift(Gift gift){
+        return giftDAO.updateGift(gift);
+    }
+    
+    public Gift getGiftById(int id){
+        return giftDAO.getGiftById(id);
+    }
 }

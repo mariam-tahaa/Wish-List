@@ -120,11 +120,15 @@ public class WishlistController {
         Label priceLabel = new Label("$" + gift.getPrice());
         priceLabel.setStyle("-fx-text-fill: white; -fx-font-family: 'Arial Rounded MT Bold'; -fx-font-size: 20px;");
 
+        Label updateLabel = new Label("✎");
+        updateLabel.setStyle("-fx-text-fill: white; -fx-font-size: 22px; -fx-cursor: hand;");
+        updateLabel.setOnMouseClicked(event -> updateGift(gift.getGiftId()));
+        
         Label deleteLabel = new Label("🗑");
         deleteLabel.setStyle("-fx-text-fill: #ff4d4d; -fx-font-size: 22px; -fx-cursor: hand;");
         deleteLabel.setOnMouseClicked(event -> deleteGift(gift.getGiftId()));
 
-        rightColumn.getChildren().addAll(priceLabel, deleteLabel);
+        rightColumn.getChildren().addAll(priceLabel, updateLabel, deleteLabel);
 
         // Add columns to content row
         contentRow.getChildren().addAll(leftColumn, rightColumn);
@@ -139,6 +143,16 @@ public class WishlistController {
         return itemContainer;
     }
 
+    private void updateGift(int giftId){
+        SessionManager.setGiftId(giftId);
+        System.out.println("Update: " + giftId);
+        try {
+            App.setRoot("updateItem");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void deleteGift(int giftId) {
         if (currentUser == null) return;
 

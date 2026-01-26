@@ -1,12 +1,11 @@
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\FriendRequestsController.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\IndexController.java
 D:\Documents\Wish-List\src\main\java\module-info.java
+D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\ServerController.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\DAO\UserDAO.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Models\Friendship.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Services\FriendRequestsService.java
-D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\PrimaryController.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Services\ContributionService.java
-D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\SecondaryController.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\DAO\FriendshipDAO.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Models\Contribution.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\AddItemController.java
@@ -28,6 +27,7 @@ D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\FriendsC
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Helpers\SessionManager.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\DAO\ContributionDAO.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\LoginController.java
+D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\UpdateController.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\DAO\GiftDAO.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\Controllers\NotificationController.java
 D:\Documents\Wish-List\src\main\java\com\mycompany\wishlist\DAO\FriendRequestDAO.java

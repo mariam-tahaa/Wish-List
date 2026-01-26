@@ -10,7 +10,7 @@
            style="-fx-background-color: white;"
            xmlns="http://javafx.com/javafx/8.0.171"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.mycompany.wishlist.Controllers.PrimaryController">
+           fx:controller="com.mycompany.wishlist.Controllers.ServerController">
 
     <children>
         <VBox alignment="CENTER" spacing="50.0">

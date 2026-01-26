@@ -6,7 +6,7 @@ import com.mycompany.wishlist.App;
 
 import javafx.fxml.FXML;
 
-public class PrimaryController {
+public class ServerController {
 
     @FXML
     private void startServer() {

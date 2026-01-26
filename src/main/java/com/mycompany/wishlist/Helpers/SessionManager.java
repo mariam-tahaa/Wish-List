@@ -4,7 +4,8 @@ import com.mycompany.wishlist.Models.User;
 
 public class SessionManager {
     private static User currentUser;
-    private static Integer friendId; // Add this
+    private static Integer friendId;
+    private static Integer giftId;// Add this
 
     public static void setCurrentUser(User user) {
         currentUser = user;
@@ -27,5 +28,16 @@ public class SessionManager {
 
     public static void clearFriendId() {
         friendId = null;
+    }
+    public static void setGiftId(int id) {
+        giftId = id;
+    }
+
+    public static Integer getGiftId() {
+        return giftId;
+    }
+
+    public static void clearGiftId() {
+        giftId = null;
     }
 }
