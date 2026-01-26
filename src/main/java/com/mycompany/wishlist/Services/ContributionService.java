@@ -21,7 +21,7 @@ public class ContributionService {
     private NotificationDAO notificationDAO = new NotificationDAO();
 
     /**
-     * Adds a new contribution with validation, notifies the owner, 
+     * Adds a new contribution with validation, notifies the owner,
      * and handles gift completion logic.
      */
     public boolean addContribution(Contribution contribution) {
@@ -58,16 +58,34 @@ public class ContributionService {
 
         // 4. Insert the contribution
         boolean success = contributionDAO.addContribution(contribution);
-        if (!success) return false;
+
+        BigDecimal totalContributed = BigDecimal.ZERO;
+        List<Contribution> contributions = getContributionsByGiftId(gift.getGiftId());
+        for (Contribution c : contributions) {
+            totalContributed = totalContributed.add(c.getPercentage());
+        }
+
+        if (!success)
+            return false;
 
         // 5. Notify gift owner about new contribution
         try {
             String currentUserName = SessionManager.getCurrentUser().getUserName();
+
+            BigDecimal addedPercentage = contribution.getPercentage();
+
+            BigDecimal contributedAmount = gift.getPrice()
+                    .multiply(addedPercentage)
+                    .divide(new BigDecimal("100"));
+
             Notification ownerNotification = new Notification();
             ownerNotification.setUserId(gift.getOwnerUserId());
-            ownerNotification.setContent("User " + currentUserName + " contributed to your gift: " + gift.getGiftName());
             ownerNotification.setGiftId(gift.getGiftId());
+            ownerNotification.setContent(currentUserName + " contributed " + contributedAmount + " to your gift: " + gift.getGiftName()
+                                         + " with price " + contributedAmount);
+
             notificationDAO.addNotification(ownerNotification);
+
         } catch (Exception e) {
             System.out.println("Note: Notification failed but contribution was saved.");
         }
@@ -85,13 +103,20 @@ public class ContributionService {
                 contribNotification.setGiftId(gift.getGiftId());
                 notificationDAO.addNotification(contribNotification);
             }
+            User friend = friendsService.getUserById(gift.getOwnerUserId());
+            Notification contribNotification = new Notification();
+            contribNotification.setUserId(friend.getUserId());
+            contribNotification.setContent("Gift '" + gift.getGiftName() + "' is now fully funded!");
+            contribNotification.setGiftId(gift.getGiftId());
+            notificationDAO.addNotification(contribNotification);
         }
 
         return true;
     }
 
     /**
-     * Retrieves all contributions for a user, including nested Gift and Friend (Owner) objects.
+     * Retrieves all contributions for a user, including nested Gift and Friend
+     * (Owner) objects.
      * This supports the "Contributions Page" UI requirements.
      */
     public List<Contribution> getFullUserContributions(int userId) {
@@ -122,7 +147,8 @@ public class ContributionService {
         }
 
         Contribution existing = contributionDAO.getContributionById(contributionId);
-        if (existing == null) return false;
+        if (existing == null)
+            return false;
 
         List<Contribution> contributions = contributionDAO.getContributionsByGiftId(existing.getGiftId());
         BigDecimal totalWithoutCurrent = BigDecimal.ZERO;
@@ -133,10 +159,12 @@ public class ContributionService {
         }
 
         BigDecimal newTotal = totalWithoutCurrent.add(newPercentage);
-        if (newTotal.compareTo(new BigDecimal("100")) > 0) return false;
+        if (newTotal.compareTo(new BigDecimal("100")) > 0)
+            return false;
 
         boolean success = contributionDAO.updateContributionPercentage(contributionId, newPercentage);
-        if (!success) return false;
+        if (!success)
+            return false;
 
         Gift gift = giftDAO.getGiftById(existing.getGiftId());
         if (gift != null) {
@@ -146,7 +174,8 @@ public class ContributionService {
                 giftDAO.updateGift(gift);
 
                 if ("Completed".equalsIgnoreCase(newStatus)) {
-                    List<Contribution> allContributions = contributionDAO.getContributionsByGiftId(existing.getGiftId());
+                    List<Contribution> allContributions = contributionDAO
+                            .getContributionsByGiftId(existing.getGiftId());
                     for (Contribution c : allContributions) {
                         Notification n = new Notification();
                         n.setUserId(c.getContributorId());
@@ -163,10 +192,12 @@ public class ContributionService {
 
     public boolean deleteContribution(int contributionId) {
         Contribution existing = contributionDAO.getContributionById(contributionId);
-        if (existing == null) return false;
+        if (existing == null)
+            return false;
 
         boolean success = contributionDAO.deleteContribution(contributionId);
-        if (!success) return false;
+        if (!success)
+            return false;
 
         Gift gift = giftDAO.getGiftById(existing.getGiftId());
         if (gift != null && "Completed".equalsIgnoreCase(gift.getStatus())) {

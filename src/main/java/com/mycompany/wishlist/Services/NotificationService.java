@@ -6,12 +6,6 @@ import com.mycompany.wishlist.Models.Notification;
 import com.mycompany.wishlist.Helpers.SessionManager;
 import java.util.List;
 
-//TODO
-//return when completed to the owner
-//return contribution %
-//remove user from content
-//separate notification from contributions
-
 public class NotificationService {
 
     
