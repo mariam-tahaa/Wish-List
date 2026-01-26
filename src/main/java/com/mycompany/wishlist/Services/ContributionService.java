@@ -83,7 +83,7 @@ public class ContributionService {
             Notification ownerNotification = new Notification();
             ownerNotification.setUserId(gift.getOwnerUserId());
             ownerNotification.setGiftId(gift.getGiftId());
-            ownerNotification.setContent(currentUserName + " contributed to your gift: " + gift.getGiftName()
+            ownerNotification.setContent(currentUserName + " contributed to your gift '" + gift.getGiftName() + "'"
                                          + " with price " + contributedAmount);
 
             notificationDAO.addNotification(ownerNotification);
