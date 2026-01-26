@@ -11,7 +11,9 @@ import com.mycompany.wishlist.Models.Notification;
 import com.mycompany.wishlist.Models.User;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContributionService {
 
@@ -81,7 +83,7 @@ public class ContributionService {
             Notification ownerNotification = new Notification();
             ownerNotification.setUserId(gift.getOwnerUserId());
             ownerNotification.setGiftId(gift.getGiftId());
-            ownerNotification.setContent(currentUserName + " contributed " + contributedAmount + " to your gift: " + gift.getGiftName()
+            ownerNotification.setContent(currentUserName + " contributed to your gift: " + gift.getGiftName()
                                          + " with price " + contributedAmount);
 
             notificationDAO.addNotification(ownerNotification);
@@ -96,13 +98,20 @@ public class ContributionService {
             giftDAO.updateGift(gift);
 
             List<Contribution> allContributions = contributionDAO.getContributionsByGiftId(contribution.getGiftId());
+
+            Set<Integer> contributorIds = new HashSet<>();
             for (Contribution c : allContributions) {
+                contributorIds.add(c.getContributorId());
+            }
+
+            for (int user_id : contributorIds) {
                 Notification contribNotification = new Notification();
-                contribNotification.setUserId(c.getContributorId());
+                contribNotification.setUserId(user_id);
                 contribNotification.setContent("Gift '" + gift.getGiftName() + "' is now fully funded!");
                 contribNotification.setGiftId(gift.getGiftId());
                 notificationDAO.addNotification(contribNotification);
             }
+
             User friend = friendsService.getUserById(gift.getOwnerUserId());
             Notification contribNotification = new Notification();
             contribNotification.setUserId(friend.getUserId());
